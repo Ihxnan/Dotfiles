@@ -11,17 +11,24 @@
 - curl
 - git
 
+---
+
+### File Tree
 1. .i3
     - ```config```
 
-2. alacritty
+2. sh
+    - ```vim-plug.sh```
+    - ```manjaro_config.sh```
+
+3. alacritty
     - ```alacritty.toml```
 
-3. nvim
+4. nvim
     - ```coc-settings.json```
     - ```init.vim```
 
-4. ranger
+5. ranger
     - ```commands.py```
     - ```devicons.py```
     - ```rc.conf```
