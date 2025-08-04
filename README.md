@@ -13,6 +13,24 @@
 
 ---
 
+### Installation
+
+please download [git](https://git-scm.com/) first.
+
+
+#### arch
+```
+sudo pacman -Syyu
+sudo pacman -S git
+```
+#### debian
+```
+sudo apt update
+sudo apt install git
+```
+
+---
+
 ### File Tree
 1. .i3
     - ```config```
