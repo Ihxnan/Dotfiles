@@ -4,6 +4,20 @@
 
 ---
 
-1. nvim
+1. .i3
+    - ```config```
+
+2. alacritty
+    - ```alacritty.toml```
+
+3. nvim
+    - ```coc-settings.json```
+    - ```init.vim```
+
+4. ranger
+    - ```commands.py```
+    - ```devicons.py```
+    - ```rc.conf```
+    - ```scope.sh```
 
 
