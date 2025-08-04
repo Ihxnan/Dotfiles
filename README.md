@@ -4,6 +4,13 @@
 
 ---
 
+### System Requirements
+
+- npm
+- nodejs
+- curl
+- git
+
 1. .i3
     - ```config```
 
