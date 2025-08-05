@@ -1,6 +1,4 @@
-echo '[archlinuxcn]
-SigLevel = Never
-Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch' >> /etc/pacman.conf
+mv -f ./manjaro/pacman.conf /etc/pacman.conf
 
 pacman-mirrors -c China
 
