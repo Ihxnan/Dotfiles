@@ -17,39 +17,53 @@
 
 please download [git](https://git-scm.com/) first.
 
+<details>
+<summary> git install </summary>
 
-#### arch
+##### arch
 ```
 sudo pacman -Syyu
 sudo pacman -S git
 ```
+##### debian
+```
+sudo apt update && sudo apt upgrade -y
+sudo apt install git -y
+```
+
+</details>
+
+```
+git clone https://github.com/Ihxnan/Dotfiles.git
+cd Dotfiles
+```
+
+#### arch
+```
+sudo sh ./scripts/manjaro.sh
+```
 #### debian
 ```
-sudo apt update
-sudo apt install git
+sudo sh ./scripts/ubuntu.sh
 ```
 
 ---
 
 ### File Tree
-1. .i3
-    - ```config```
-
-2. sh
-    - ```vim-plug.sh```
-    - ```manjaro_config.sh```
-
-3. alacritty
-    - ```alacritty.toml```
-
-4. nvim
-    - ```coc-settings.json```
-    - ```init.vim```
-
-5. ranger
-    - ```commands.py```
-    - ```devicons.py```
-    - ```rc.conf```
-    - ```scope.sh```
-
-
+````
+dotfiles/
+├── .i3/
+│   └── config               # i3 窗口管理器配置
+├── alacritty/
+│   └── alacritty.toml       # Alacritty 终端模拟器设置
+├── nvim/
+│   ├── coc-settings.json    # CoC（代码补全工具）配置
+│   └── init.vim             # Neovim 主配置文件
+├── ranger/
+│   ├── commands.py          # Ranger 文件管理器自定义命令
+│   ├── devicons.py          # Ranger 图标配置
+│   ├── rc.conf              # Ranger 主配置文件
+│   └── scope.sh             # Ranger 文件预览脚本
+└── scripts/
+    ├── vim-plug.sh          # Vim 插件管理器安装脚本
+    └── manjaro_config.sh    # Manjaro 系统专属配置脚本
