@@ -23,11 +23,7 @@ please download [git](https://git-scm.com/) first.
 ##### arch
 
 If there is no update source,
-please run this script before executing the following commands.
-
-```
-sudo sh ./scripts/manjaro_config.sh
-```
+please run ```sudo sh ./scripts/manjaro_config.sh``` before executing the following commands.
 
 ```
 sudo pacman -Syyu
