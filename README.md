@@ -20,7 +20,7 @@ please download [git](https://git-scm.com/) first.
 <details>
 <summary> git install </summary>
 
-##### arch
+##### manjaro
 
 If there is no update source,
 please run ```sudo sh ./scripts/manjaro_config.sh``` before executing the following commands.
@@ -29,7 +29,7 @@ please run ```sudo sh ./scripts/manjaro_config.sh``` before executing the follow
 sudo pacman -Syyu
 sudo pacman -S git
 ```
-##### debian
+##### ubuntu
 ```
 sudo apt update && sudo apt upgrade -y
 sudo apt install git -y
@@ -42,11 +42,15 @@ git clone https://github.com/Ihxnan/Dotfiles.git
 cd Dotfiles
 ```
 
-#### arch
+#### manjaro
 ```
 sudo sh ./scripts/manjaro.sh
 ```
-#### debian
+#### manjaro_i3
+```
+sudo sh ./scripts/manjaro_i3.sh
+```
+#### ubuntu
 ```
 sudo sh ./scripts/ubuntu.sh
 ```
