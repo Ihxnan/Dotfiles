@@ -30,11 +30,6 @@ set smartindent             " 智能缩进（适合代码编写）
 set ignorecase              " 搜索时忽略大小写
 set smartcase               " 如果搜索包含大写字母，则区分大小写
 
-" coc.nvim 基础配置
-set hidden
-set updatetime=100
-set shortmess+=c
-
 " 其他设置
 set notimeout               " 防止组合键超时问题
 
@@ -62,24 +57,6 @@ map <silent> <C-e> :NERDTreeToggle<CR>
 " markdown : Ctrl + p 打开实时预览
 nmap <C-p> <Plug>MarkdownPreview<CR>
 
-" coc.nvim
-" 补全菜单可见时，Tab 确认选择
-inoremap <expr> <Tab> pumvisible() ? "\<C-y>" : "\<Tab>"
-" ctrl + o 打开补全
-inoremap <silent><expr> <c-o> coc#refresh()
-" \[ 跳转到上一条报错位置
-nmap <silent><nowait> <leader>[ <Plug>(coc-diagnostic-prev)
-" \] 跳转到下一条报错位置
-nmap <silent><nowait> <leader>] <Plug>(coc-diagnostic-next)
-" GoTo code navigation
-" Ctrl + o jumpback
-" 跳转到 定义
-nmap <silent><nowait> gd <Plug>(coc-definition)
-" 展示引用
-nmap <silent><nowait> gr <Plug>(coc-references)
-" 重命名
-nmap <leader>rn <Plug>(coc-rename)
-
 " vim-autoformat
 noremap <C-i> :Autoformat<CR>
 
@@ -88,7 +65,7 @@ noremap <C-i> :Autoformat<CR>
 " =============================
 
 " 初始化插件系统（使用vim-plug）
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin('~/.vim/')
 
 " 优化开始界面
 Plug 'mhinz/vim-startify'
@@ -122,9 +99,6 @@ Plug 'tpope/vim-commentary'
 
 " markdown实时预览
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
-
-" 自动补全
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " 自动格式化代码
 Plug 'vim-autoformat/vim-autoformat'
@@ -179,15 +153,6 @@ au Syntax * RainbowParenthesesLoadBraces
 
 " markdown
 let g:mkdp_auto_start = 1
-
-
-" coc.nvim
-" 默认插件
-let g:coc_global_extensions = [
-            \ 'coc-json',
-            \ 'coc-vimlsp',
-            \ 'coc-java',
-            \ 'coc-clangd']
 
 " autoformat 配置
 let g:formatdef_clangformat_microsoft = '"clang-format -style microsoft -"'

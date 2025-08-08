@@ -14,7 +14,7 @@ return {
         -- 窗口位置，可选: left, right, top, bottom
         window = {
           position = "left",
-          width = 30, -- 窗口宽度
+          width = 25, -- 窗口宽度
         },
         -- 文件系统配置
         filesystem = {

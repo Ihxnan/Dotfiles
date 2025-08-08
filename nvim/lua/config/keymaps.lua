@@ -16,10 +16,14 @@ keymap.set("n", "<leader>sv", "<C-w>v") -- 水平新增窗口
 keymap.set("n", "<leader>sh", "<C-w>s") -- 垂直新增窗口
 
 -- 窗口导航快捷键
-keymap.set("n", "<leader>h", "<C-w>h", { desc = "聚焦到左侧窗口" })
-keymap.set("n", "<leader>l", "<C-w>l", { desc = "聚焦到右侧窗口" })
-keymap.set("n", "<leader>j", "<C-w>j", { desc = "聚焦到下方窗口" })
-keymap.set("n", "<leader>k", "<C-w>k", { desc = "聚焦到上方窗口" })
+keymap.set("n", "<leader>h", "<C-w>h", { desc = " 聚焦到左侧窗口" })
+keymap.set("n", "<leader>l", "<C-w>l", { desc = " 聚焦到右侧窗口" })
+keymap.set("n", "<leader>j", "<C-w>j", { desc = " 聚焦到下方窗口" })
+keymap.set("n", "<leader>k", "<C-w>k", { desc = " 聚焦到上方窗口" })
+
+-- 窗口大小调节快捷键
+vim.keymap.set("n", "<A-=>", "<C-w>>")  -- Alt+= 放大
+vim.keymap.set("n", "<A-->", "<C-w><")  -- Alt+- 缩小（注意这里是两个减号？不，是<A-->）
 
 -- 取消高亮
 keymap.set("n", "<leader>nh", ":nohl<CR>")
@@ -28,6 +32,9 @@ keymap.set("n", "<leader>nh", ":nohl<CR>")
 keymap.set("n", "<C-L>", ":bnext<CR>")
 keymap.set("n", "<C-H>", ":bprevious<CR>")
 keymap.set("n", "<C-D>", ":bdelete<CR>")
+
+-- 快速保存
+keymap.set("n", "<C-S>", ":w<CR>")
 
 -- 快速移动
 keymap.set("n", "J", "5j")
