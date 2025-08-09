@@ -37,4 +37,7 @@ opt.signcolumn = "yes"
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
--- 其他设置
+-- vimwiki设置
+opt.compatible = false
+vim.cmd('filetype plugin on')
+vim.cmd('syntax on')

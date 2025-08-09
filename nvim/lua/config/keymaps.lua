@@ -15,8 +15,8 @@ keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
 -- ---------- 正常模式 ---------- ---
 -- <leader> a new window
-keymap.set("n", "<leader>wv", "<C-w>v", { desc = "leader a window vertically"})
-keymap.set("n", "<leader>wh", "<C-w>s", { desc = "leader a window horizontally " })
+keymap.set("n", "<leader>wv", "<C-w>s", { desc = "leader a window vertically"})
+keymap.set("n", "<leader>wh", "<C-w>v", { desc = "leader a window horizontally " })
 keymap.set("n", "<leader>t", "<C-w>s:terminal<CR>i", { desc = "leader a terminal with insert mode" })
 
 -- go window focus {h, j, k, l}

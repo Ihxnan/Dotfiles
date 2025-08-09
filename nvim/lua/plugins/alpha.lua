@@ -33,6 +33,7 @@ return {
         dashboard.button("n", "  New file",        [[<cmd> ene <BAR> startinsert <cr>]]),
         dashboard.button("c", "  Config",          "<cmd> e ~/.config/nvim/lua/config/ <cr>"),
         dashboard.button("p", "  Plugins",         "<cmd> e ~/.config/nvim/lua/plugins/<cr>"),
+        dashboard.button("b", "  Blog",            "<cmd> e ~/WorkSpace/Blog/<cr>"),
         dashboard.button("l", "󰒲  Lazy",            "<cmd> Lazy <cr>"),
         dashboard.button("h", "  Helath check",    "<cmd> checkhealth <cr>"),
         dashboard.button("q", "  Quit",            "<cmd> qa <cr>"),

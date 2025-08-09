@@ -7,7 +7,7 @@ return {
     vim.g.mkdp_filetypes = { "markdown" }
     
     -- 自动启动预览
-    vim.g.mkdp_auto_start = 1  -- 1 为启用，0 为禁用
+    vim.g.mkdp_auto_start = 0  -- 1 为启用，0 为禁用
     
     -- 指定浏览器 (根据你的实际浏览器可执行文件路径修改)
     -- Windows 示例: vim.g.mkdp_browser = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
