@@ -33,6 +33,7 @@ return {
         dashboard.button("n", "  New file",        [[<cmd> ene <BAR> startinsert <cr>]]),
         dashboard.button("c", "  Config",          "<cmd> e ~/.config/nvim/lua/config/ <cr>"),
         dashboard.button("p", "  Plugins",         "<cmd> e ~/.config/nvim/lua/plugins/<cr>"),
+        dashboard.button("a", "  Algorithm",       "<cmd> e ~/WorkSpace/Algorithm/<cr>"),
         dashboard.button("b", "  Blog",            "<cmd> e ~/WorkSpace/Blog/<cr>"),
         dashboard.button("l", "󰒲  Lazy",            "<cmd> Lazy <cr>"),
         dashboard.button("h", "  Helath check",    "<cmd> checkhealth <cr>"),
@@ -47,7 +48,7 @@ return {
       dashboard.section.header.opts.hl = "AlphaHeader"
       dashboard.section.buttons.opts.hl = "AlphaButtons"
       dashboard.section.footer.opts.hl = "AlphaFooter"
-      dashboard.opts.layout[1].val = 1  -- 头部间距调整
+      dashboard.opts.layout[1].val = 0  -- 头部间距调整
 
       return dashboard
     end,

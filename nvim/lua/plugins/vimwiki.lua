@@ -11,9 +11,11 @@ return {
       }
     }
     
+    vim.g.vimwiki_auto_ext = 0
+    
     -- 快捷键映射设置
     vim.g.vimwiki_key_mappings = {
-      all_maps = 0,          -- 启用所有默认映射
+      all_maps = 1,          -- 启用所有默认映射
       global = 1,            -- 启用全局映射
       headers = 1,           -- 启用标题映射
       text_objs = 1,         -- 启用文本对象
@@ -29,11 +31,6 @@ return {
     vim.keymap.set('n', 'gwi', '<cmd>VimwikiIndex<CR>', { desc = 'goto wiki index' })
     -- g wiki creat diary 
     vim.keymap.set('n', 'gwc', '<cmd>VimwikiMakeDiaryNote<CR>', { desc = 'Open diary wiki-file' })
-
-    vim.keymap.set('n', '<CR>', '<cmd>VimwikiFollowLink<CR>', 
-      { desc = 'Follow/create wiki link ' })
-    vim.keymap.set('v', '<CR>', '<cmd>VimwikiFollowLink<CR>', 
-      { desc = 'Follow/create wiki link ' })
 
     vim.keymap.set('n', 'gws', '<cmd>VimwikiSplitLink<CR>', 
       { desc = 'Split follow/create wiki link' })
