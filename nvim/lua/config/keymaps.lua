@@ -18,7 +18,8 @@ keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 keymap.set("n", "<leader>wv", "<C-w>s", { desc = "leader a window vertically"})
 keymap.set("n", "<leader>wh", "<C-w>v", { desc = "leader a window horizontally " })
 keymap.set("n", "<leader>t", "<C-w>s:terminal<CR>i", { desc = "leader a terminal with insert mode" })
-keymap.set("n", "<F5>", "<C-w>s:terminal g++ % && ./a.out && rm -f ./a.out<CR>i", { desc = "run the code with g++" })
+keymap.set("n", "<leader>r", ":w<CR><C-w>s:terminal g++ % && ./a.out && rm -f ./a.out<CR>i", { desc = "run the code with g++" })
+keymap.set("n", "<F5>", ":w<CR><C-w>s:terminal g++ % && ./a.out && rm -f ./a.out<CR>i", { desc = "run the code with g++" })
 
 -- go window focus {h, j, k, l}
 keymap.set("n", "gwh", "<C-w>h", { desc = "go window left" })

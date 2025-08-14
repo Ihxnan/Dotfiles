@@ -1,4 +1,5 @@
 local opt = vim.opt
+local g = vim.g
 
 -- 行号
 opt.relativenumber = true
@@ -41,3 +42,12 @@ vim.g.loaded_netrwPlugin = 1
 opt.compatible = false
 vim.cmd('filetype plugin on')
 vim.cmd('syntax on')
+
+-- vim-autoformat配置
+-- 设置 clang-format 定义和 C++ 格式化程序
+g.formatdef_clangformat_microsoft = '"clang-format -style microsoft -"'
+g.formatters_cpp = {'clangformat_microsoft'}
+
+-- 设置 Python 3 主机路径
+g.python3_host_prog = "/usr/bin/python3"
+

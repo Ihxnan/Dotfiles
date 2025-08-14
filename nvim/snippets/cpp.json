@@ -1,0 +1,33 @@
+{
+    "Starter Template": {
+        "prefix": "st",
+        "body": [
+            "#include <algorithm>",
+            "#include <cstring>",
+            "#include <iostream>",
+            "#include <vector>",
+            "",
+            "using namespace std;",
+            "",
+            "using ll = long long;",
+            "",
+            "void solve()",
+            "{",
+            "\t$0",
+            "}",
+            "",
+            "int main()",
+            "{",
+            "\tios::sync_with_stdio(false);",
+            "\tcin.tie(nullptr);",
+            "\tcout.tie(nullptr);",
+            "\tint t = 1;",
+            "\tcin >> t;",
+            "\twhile (t--)",
+            "\t\tsolve();",
+            "\treturn 0;",
+            "}"
+        ],
+        "description": "Standard starter template for a tiny C++ program"
+    }
+}
