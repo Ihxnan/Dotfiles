@@ -1,4 +1,4 @@
-function s --wraps=neofetch --description 'alias s neofetch'
-  neofetch $argv
+function s --wraps=neofetch --wraps=screenfetch --description 'alias s screenfetch'
+  screenfetch $argv
         
 end

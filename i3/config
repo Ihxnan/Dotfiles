@@ -32,12 +32,17 @@ exec_always picom
 exec variety
 # 中文输入法
 exec_always fcitx5&
+# 禁用屏幕超时和关闭
+exec --no-startup-id xset s off
+exec --no-startup-id xset -dpms
+# polybar
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # 在 ‘workspace 7' 打开spotify
-exec --no-startup-id i3-msg 'workspace 7; exec spotify'
+exec --no-startup-id i3-msg 'workspace 7:󰽰; exec spotify'
 
 # 在 'workspace 8' 打开clash
-exec --no-startup-id i3-msg 'workspace 8; exec clash-verge'
+exec --no-startup-id i3-msg 'workspace 8:󰊀; exec clash-verge'
 
 # start a terminrl
 bindsym $mod+Return exec alacritty
@@ -77,7 +82,7 @@ bindsym $mod+F3 exec pcmanfm
 # bindsym $mod+F3 exec ranger
 bindsym $mod+Shift+F3 exec pcmanfm_pkexec
 bindsym $mod+F5 exec terminal -e 'mocp'
-bindsym $mod+t exec --no-startup-id pkill picom
+# bindsym $mod+t exec --no-startup-id pkill picom
 bindsym $mod+Ctrl+t exec --no-startup-id picom -b
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
 bindsym Print exec --no-startup-id i3-scrot
@@ -94,11 +99,15 @@ bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 
-# alternatively, you can use the cursor keys:
-# bindsym $mod+Left focus left
-# bindsym $mod+Down focus down
-# bindsym $mod+Up focus up
-# bindsym $mod+Right focus right
+# 使用方向键控制Spotify
+# 上箭头：播放/暂停
+bindsym $mod+Up exec --no-startup-id playerctl -p spotify play-pause
+# 下箭头：播放/暂停
+bindsym $mod+Down exec --no-startup-id playerctl -p spotify play-pause
+# 左箭头：上一曲
+bindsym $mod+Left exec --no-startup-id playerctl -p spotify previous
+# 右箭头：下一曲
+bindsym $mod+Right exec --no-startup-id playerctl -p spotify next      
 
 # move focused window
 bindsym $mod+Shift+h move left
@@ -157,14 +166,22 @@ bindsym $mod+Ctrl+Left workspace prev
 # to display names or symbols instead of plain workspace numbers you can use
 # something like: set $ws1 1:mail
 #                 set $ws2 2:
-set $ws1 1
-set $ws2 2
-set $ws3 3
-set $ws4 4
-set $ws5 5
-set $ws6 6
-set $ws7 7
-set $ws8 8
+# set $ws1 1
+# set $ws2 2
+# set $ws3 3
+# set $ws4 4
+# set $ws5 5
+# set $ws6 6
+# set $ws7 7
+# set $ws8 8
+set $ws1 1:
+set $ws2 2:󰬁
+set $ws3 3:󰈻
+set $ws4 4:󰈼
+set $ws5 5:
+set $ws6 6:
+set $ws7 7:󰽰
+set $ws8 8:󰊀
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -336,31 +353,34 @@ set_from_resource $term_color15    color15
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
-	i3bar_command i3bar
-	status_command i3status
-	position bottom
+    i3bar_command i3bar --transparency
+    status_command i3blocks -c ~/.config/i3blocks/config  # 使用 i3blocks 后端
+    position top  # 顶部栏
+    tray_output primary  # 托盘显示在主显示器
 
-## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
-#	tray_output primary
-#	tray_output eDP1
+    # 禁用原生工作区数字（用图标替代）
+    strip_workspace_numbers yes
+    workspace_buttons yes  # 保留工作区切换按钮
 
-	bindsym button4 nop
-	bindsym button5 nop
-#   font xft:URWGothic-Book 11
-	strip_workspace_numbers yes
+    # 字体：使用 Nerd Font 确保图标显示
+    font xft:JetBrainsMono Nerd Font 14
+    # font pango:Noto Sans Mono 14
 
+    # 颜色方案：Nord 主题 + 半透明效果
     colors {
-        background #222D31
-        statusline #F9FAF9
-        separator  #454947
+        # 背景半透明（最后两位 "CC" 代表约 80% 不透明度，可调整）
+        background #2E3440  
+        # 文本颜色（不透明，保持清晰）
+        statusline #ECEFF4 
+        # 分隔线半透明（轻微可见）
+        separator  #4C566A  
 
-#                      border  backgr. text
-        focused_workspace  #F9FAF9 #16a085 #292F34
-        active_workspace   #595B5B #353836 #FDF6E3
-        inactive_workspace #595B5B #222D31 #EEE8D5
-        binding_mode       #16a085 #2C2C2C #F9FAF9
-        urgent_workspace   #16a085 #FDF6E3 #E5201D
-    }
+        # 工作区颜色（半透明背景 + 不透明文本）
+        focused_workspace  #5E81ACFF #2E3440CC #ECEFF4FF  # 聚焦工作区：背景半透，边框/文本不透
+        active_workspace   #4C566AFF #2E3440CC #ECEFF4FF  # 活跃工作区
+        inactive_workspace #3B4252FF #2E3440CC #D8DEE9FF  # 非活跃工作区
+        urgent_workspace   #BF616AA0 #2E3440CC #ECEFF4FF  # 紧急工作区：边框半透红
+        }
 }
 
 # hide/unhide i3status bar

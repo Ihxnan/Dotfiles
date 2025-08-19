@@ -3,4 +3,5 @@ if status is-interactive
     export EDITOR=/usr/bin/nvim
     export LANG=en_US.UTF-8
     export LC_ALL=en_US.UTF-8
+    set -x BROWSER /usr/bin/chromium
 end

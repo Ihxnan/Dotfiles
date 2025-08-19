@@ -50,4 +50,3 @@ g.formatters_cpp = {'clangformat_microsoft'}
 
 -- 设置 Python 3 主机路径
 g.python3_host_prog = "/usr/bin/python3"
-

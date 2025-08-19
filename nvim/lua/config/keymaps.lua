@@ -12,6 +12,7 @@ keymap.set("t", "jk", "<C-\\><C-n>")
 -- 单行或多行移动
 keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+keymap.set("v", "<CR>", "<ESC>")
 
 -- ---------- 正常模式 ---------- ---
 -- <leader> a new window
@@ -55,3 +56,7 @@ keymap.set("n", "<C-S>", ":w<CR>")
 -- 快速移动
 keymap.set("n", "J", "5j")
 keymap.set("n", "K", "5k")
+
+-- 查询跳转
+keymap.set("n", "n", "nzz")
+keymap.set("n", "N", "Nzz")
