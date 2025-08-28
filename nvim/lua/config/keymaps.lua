@@ -4,6 +4,8 @@ local keymap = vim.keymap
 
 -- ---------- 插入模式 ---------- ---
 keymap.set("i", "jk", "<ESC>")
+keymap.set("i", "<F5>", "<ESC>:w<CR><C-w>s:terminal g++ % && ./a.out && rm -f ./a.out<CR>i", { desc = "run the code with g++" })
+keymap.set("i", "<C-s>", "<ESC>:w<CR>")
 
 -- ---------- 终端模式 ---------- ---
 keymap.set("t", "jk", "<C-\\><C-n>")
@@ -12,7 +14,7 @@ keymap.set("t", "jk", "<C-\\><C-n>")
 -- 单行或多行移动
 keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-keymap.set("v", "<CR>", "<ESC>")
+keymap.set("v", "ii", "<ESC>")
 
 -- ---------- 正常模式 ---------- ---
 -- <leader> a new window
@@ -60,3 +62,16 @@ keymap.set("n", "K", "5k")
 -- 查询跳转
 keymap.set("n", "n", "nzz")
 keymap.set("n", "N", "Nzz")
+
+-- 剪切一行
+keymap.set("n", "<C-x>", "dd")
+-- 复制一行
+keymap.set("n", "<C-c>", "yy")
+-- 复制全部内容
+keymap.set("n", "<C-a><C-c>", "gg0yG``")
+-- 剪切全部内容
+keymap.set("n", "<C-a><C-x>", "gg0dG")
+-- 粘贴
+keymap.set("n", "<C-v>", "p")
+-- 全部替换
+keymap.set("n", "<C-a><C-v>", "gg0vG$p")

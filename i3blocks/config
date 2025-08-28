@@ -19,4 +19,4 @@ signal=1
 
 [BATTERY]
 command=~/.config/i3blocks/battery/battery_info.sh
-interval=3
+interval=1

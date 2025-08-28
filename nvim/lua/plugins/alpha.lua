@@ -30,11 +30,11 @@ return {
       -- 基础功能按钮（保留核心操作入口）
       dashboard.section.buttons.val = {
         dashboard.button("f", "  Find file",       [[<cmd>lua require('telescope.builtin').find_files()<cr>]]),
-        dashboard.button("n", "  New file",        [[<cmd> ene <BAR> startinsert <cr>]]),
         dashboard.button("c", "  Config",          "<cmd> e ~/.config/nvim/lua/config/ <cr>"),
         dashboard.button("p", "  Plugins",         "<cmd> e ~/.config/nvim/lua/plugins/<cr>"),
+        dashboard.button("t", "  Test",            "<cmd> e ~/WorkSpace/Algorithm/test.cpp<cr>"),
         dashboard.button("a", "  Algorithm",       "<cmd> e ~/WorkSpace/Algorithm/<cr>"),
-        dashboard.button("b", "  Blog",            "<cmd> e ~/WorkSpace/Blog/<cr>"),
+        dashboard.button("b", "  Blog",            "<cmd> e ~/Hexo-Blog/blog-demo/source/_posts/<cr>"),
         dashboard.button("l", "󰒲  Lazy",            "<cmd> Lazy <cr>"),
         dashboard.button("h", "  Helath check",    "<cmd> checkhealth <cr>"),
         dashboard.button("q", "  Quit",            "<cmd> qa <cr>"),
