@@ -51,6 +51,11 @@ keymap.set("n", "<leader>nh", ":nohl<CR>")
 keymap.set("n", "gbh", ":bprevious<CR>", {desc = "goto buffer left"})
 keymap.set("n", "gbl", ":bnext<CR>", { desc = "goto buffer right" })
 keymap.set("n", "gbd", ":bdelete<CR>", { desc = "buffer delete" })
+keymap.set("n", "gbo", ":BufferLineCloseOthers<CR>", { desc = "buffer delete other" })
+
+keymap.set("n", "H", ":BufferLineCyclePre<CR>")
+keymap.set("n", "L", ":BufferLineCycleNext<CR>")
+
 
 -- 快速保存
 keymap.set("n", "<C-S>", ":w<CR>")
