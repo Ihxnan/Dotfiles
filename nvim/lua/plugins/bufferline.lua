@@ -1,4 +1,5 @@
-return {
+return
+{
     "akinsho/bufferline.nvim",
     version = "*", -- 使用最新稳定版，也可指定具体版本如 "v3.6.0"
     dependencies = {
@@ -7,20 +8,19 @@ return {
     },
     event = "VeryLazy", -- 懒加载时机，VeryLazy 表示 Neovim 启动完成后加载
     config = function()
-        require("bufferline").setup {
+        require("bufferline").setup({
             options = {
-                -- 使用 nvim 内置 LSP 做诊断
+                always_show_bufferline = false,
                 diagnostics = "nvim_lsp",
-                -- 左侧给 Neo-tree 让出位置
                 offsets = {
                     {
-                        filetype = "neo-tree",  -- 改为 neo-tree 的 filetype
+                        filetype = "neo-tree",
                         text = "File Explorer",
                         highlight = "Directory",
                         text_align = "left",
                     },
                 },
             },
-        }
-    end,
+        })
+    end
 }

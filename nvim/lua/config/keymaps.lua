@@ -2,9 +2,30 @@ vim.g.mapleader = " "
 
 local keymap = vim.keymap
 
+local run_code = function()
+  -- 保存当前文件
+  vim.cmd("w")
+
+  -- 获取当前文件类型
+  local filetype = vim.bo.filetype
+
+  -- 根据文件类型执行不同命令
+  if filetype == "cpp" or filetype == "c" then
+    -- C/C++ 编译运行命令
+    vim.cmd("split | terminal g++ % && ./a.out && rm -f a.out")
+  elseif filetype == "python" then
+    -- Python 运行命令
+    vim.cmd("split | terminal python %")
+  else
+    -- 其他文件类型提示
+    print("不支持的文件类型: " .. filetype)
+  end
+end
+
+
 -- ---------- 插入模式 ---------- ---
 keymap.set("i", "jk", "<ESC>")
-keymap.set("i", "<F5>", "<ESC>:w<CR><C-w>s:terminal g++ % && ./a.out && rm -f ./a.out<CR>i", { desc = "run the code with g++" })
+
 keymap.set("i", "<C-s>", "<ESC>:w<CR>")
 
 -- ---------- 终端模式 ---------- ---
@@ -20,9 +41,9 @@ keymap.set("v", "ii", "<ESC>")
 -- <leader> a new window
 keymap.set("n", "<leader>wv", "<C-w>s", { desc = "leader a window vertically"})
 keymap.set("n", "<leader>wh", "<C-w>v", { desc = "leader a window horizontally " })
-keymap.set("n", "<leader>t", "<C-w>s:terminal<CR>i", { desc = "leader a terminal with insert mode" })
-keymap.set("n", "<leader>r", ":w<CR><C-w>s:terminal g++ % && ./a.out && rm -f ./a.out<CR>i", { desc = "run the code with g++" })
-keymap.set("n", "<F5>", ":w<CR><C-w>s:terminal g++ % && ./a.out && rm -f ./a.out<CR>i", { desc = "run the code with g++" })
+keymap.set("n", "<leader>t", ":w<CR><C-w>s:terminal<CR>i", { desc = "leader a terminal with insert mode" })
+keymap.set("n", "<leader>r", run_code, { desc = "run the code" })
+keymap.set("n", "<F5>", run_code, { desc = "run the code" })
 
 -- go window focus {h, j, k, l}
 keymap.set("n", "gwh", "<C-w>h", { desc = "go window left" })
@@ -41,8 +62,8 @@ keymap.set("n", "gwd", "<C-w>q", { desc = "g window delete" })
 keymap.set("n", "gwo", "<C-w>o", { desc = "g window delete other" })
 
 -- g window resize {=, -}
-vim.keymap.set("n", "gw=", "<C-w>>", { desc = "g window enlarge" })
-vim.keymap.set("n", "gw-", "<C-w><", { desc = "g window shrink"})
+vim.keymap.set("n", "<M-=>", "<C-w>>", { desc = "g window enlarge" })
+vim.keymap.set("n", "<M-->", "<C-w><", { desc = "g window shrink"})
 
 -- 取消高亮
 keymap.set("n", "<leader>nh", ":nohl<CR>")
