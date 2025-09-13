@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-rm -rf alacritty fish .i3 i3blocks nvim ranger .vimrc .zshrc.pre-oh-my-zsh
+rm -rf alacritty fish .i3 i3blocks nvim ranger .vimrc
 
 cp -r ~/.config/alacritty/ .
 cp -r ~/.config/fish/ .
