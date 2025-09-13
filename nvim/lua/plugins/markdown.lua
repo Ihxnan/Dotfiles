@@ -4,7 +4,7 @@ return {
   build = "cd app && yarn install",
   init = function()
     -- 设置支持的文件类型
-    vim.g.mkdp_filetypes = { "markdown" }
+    vim.g.mkdp_filetypes = { "markdown", "html" }
     
     -- 自动启动预览
     vim.g.mkdp_auto_start = 0  -- 1 为启用，0 为禁用

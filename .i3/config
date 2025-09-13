@@ -35,8 +35,8 @@ exec_always fcitx5&
 # 禁用屏幕超时和关闭
 exec --no-startup-id xset s off
 exec --no-startup-id xset -dpms
-# polybar
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
+exec keynav
 
 # 在 ‘workspace 7' 打开spotify
 exec --no-startup-id i3-msg 'workspace 7:󰽰; exec spotify'
@@ -175,9 +175,9 @@ bindsym $mod+Ctrl+Left workspace prev
 # set $ws7 7
 # set $ws8 8
 set $ws1 1:
-set $ws2 2:󰬁
-set $ws3 3:󰈻
-set $ws4 4:󰈼
+set $ws2 2:
+set $ws3 3:
+set $ws4 4:
 set $ws5 5:
 set $ws6 6:
 set $ws7 7:󰽰

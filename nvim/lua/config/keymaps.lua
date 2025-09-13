@@ -15,7 +15,11 @@ local run_code = function()
     vim.cmd("split | terminal g++ % && ./a.out && rm -f a.out")
   elseif filetype == "python" then
     -- Python 运行命令
-    vim.cmd("split | terminal python %")
+    vim.cmd("split | terminal python3 %")
+  elseif filetype == "cmake" then
+    -- CMake 
+    vim.cmd("split | terminal rm -rf build && mkdir build && cd build && cmake .. && make && ./a.out; $SHELL")
+    vim.cmd("startinsert")
   else
     -- 其他文件类型提示
     print("不支持的文件类型: " .. filetype)
@@ -80,6 +84,9 @@ keymap.set("n", "L", ":BufferLineCycleNext<CR>")
 
 -- 快速保存
 keymap.set("n", "<C-S>", ":w<CR>")
+
+keymap.set("n", "j", "gj")
+keymap.set("n", "k", "gk")
 
 -- 快速移动
 keymap.set("n", "J", "5j")
