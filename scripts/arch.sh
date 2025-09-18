@@ -18,7 +18,9 @@ sudo pacman -S --noconfirm \
     gcc \
     gdb \
     clang \
-    nodejs
+    nodejs \
+    ttf-jetbrains-mono \
+    ttf-jetbrains-mono-nerd
 
 sudo npm install -g yarn
 
