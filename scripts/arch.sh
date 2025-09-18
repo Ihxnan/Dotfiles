@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+mkdir -p ~/WorkSpace/Algorithm
+
 ./scripts/arch_only.sh 
 
 sudo pacman -Syyu --noconfirm

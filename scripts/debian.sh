@@ -7,6 +7,8 @@ sudo add-apt-repository -y ppa:neovim-ppa/unstable
 sudo apt upgrade -y
 sudo apt update -y
 
+mkdir -p ~/WorkSpace/Algorithm
+
 sudo apt install -y \
     neovim \
     curl \
