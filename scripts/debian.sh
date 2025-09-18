@@ -1,11 +1,27 @@
 #!/usr/bin/bash
 
-sudo apt update
+sudo apt update -y
 
-sudo add-apt-repository ppa:neovim-ppa/unstable
+sudo add-apt-repository -y ppa:neovim-ppa/unstable
 
-sudo apt update
+sudo apt update -y
 
-sudo apt install neovim
+sudo apt install -y \
+    neovim \
+    curl \
+    i3-wm \
+    vim \
+    alacritty \
+    fish \
+    i3blocks \
+    ranger \
+    picom \
+    npm \
+    gcc \
+    g++ \
+    gdb \
+    clangd \
+    nodejs \
+    yarnpkg
 
-sudo apt install git curl i3-wm vim alacritty fish i3blocks ranger picom npm gcc g++ gdb clangd nodejs yarnpkg
+chsh -s $(which fish)
