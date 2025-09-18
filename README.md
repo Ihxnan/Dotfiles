@@ -8,6 +8,8 @@
 │   ├── alacritty
 │   ├── fish
 │   ├── i3blocks
+│   ├── ranger
+│   ├── picom.conf
 │   └── nvim
 ├── .i3
 ├── pacman.conf
