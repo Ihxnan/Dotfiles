@@ -65,6 +65,7 @@ bash ./scripts/setup.sh
 - **compositor**：Picom 配置（.config/picom.conf）
 - **包管理器**：Pacman 配置（pacman.conf）
     - Arch系发行版可选择
+    - `./scripts/arch_only.sh`
 ---
 
 ## 脚本说明
