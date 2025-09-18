@@ -17,7 +17,6 @@ sudo pacman -S --noconfirm \
     ranger \
     picom \
     npm \
-    paru\
     gcc \
     gdb \
     clang \
