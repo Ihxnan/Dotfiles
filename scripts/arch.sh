@@ -16,9 +16,8 @@ sudo pacman -S --noconfirm \
     picom \
     npm \
     gcc \
-    g++ \
     gdb \
-    clangd \
+    clang \
     nodejs
 
 sudo npm install -g yarn
