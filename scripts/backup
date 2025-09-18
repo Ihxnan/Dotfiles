@@ -1,17 +1,25 @@
 #!/bin/bash
 
-rm -rf alacritty fish .i3 i3blocks nvim ranger .vimrc picom.conf
+rm -rf .config .i3 .vimrc
 
-sources=(
-  ~/.config/alacritty/
-  ~/.config/fish/
-  ~/.config/i3blocks/
-  ~/.config/nvim/
-  ~/.config/ranger/
-  ~/.i3/
-  ~/.vimrc
-  ~/.config/picom.conf
+mkdir .config
+
+sources_config=(
+    ~/.config/alacritty/
+    ~/.config/fish/
+    ~/.config/i3blocks/
+    ~/.config/nvim/
+    ~/.config/ranger/
+    ~/.config/picom.conf
 )
 
-cp -r "${sources[@]}" .
+sources_home=(
+    ~/.i3/
+    ~/.vimrc
+)
+
+
+cp -r "${sources_config[@]}" ./.config/
+
+cp -r "${sources_home[@]}" .
 
