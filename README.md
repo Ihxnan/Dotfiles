@@ -9,9 +9,7 @@
 ## 前置要求
 
 在使用前，请确保系统已安装以下工具：
-- Git
-- Bash
-- 基本的 Unix 工具集（cp, ln, mkdir 等）
+- [Git](https://git-scm.com/)
 
 ## 安装步骤
 
@@ -21,7 +19,18 @@ git clone https://github.com/Ihxnan/Dotfiles.git
 cd Dotfiles
 ```
 
-2. 安装.config 文件
+2. 安装使用的软件
+
+- arch
+```sh
+bash ./scripts/arch.sh
+```
+- debian
+```sh
+bash ./scripts/debian.sh
+```
+
+3. 安装.config 文件
 ```sh
 # 执行安装
 bash setup.sh
@@ -41,6 +50,7 @@ bash setup.sh
 - **compositor**：Picom 配置（.config/picom.conf）
 - **包管理器**：Pacman 配置（pacman.conf）
     - 不在setup.sh中
+    - Arch系发行版可选择
     - `sudo sh ./scripts/pacman_conf.sh`
 
 ---
