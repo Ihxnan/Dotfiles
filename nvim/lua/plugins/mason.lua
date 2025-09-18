@@ -27,7 +27,7 @@ return {
 
             -- 用 ts_ls 替代 tsserver（适配 lspconfig 新版本）
             local servers = {
-                "lua_ls", "ts_ls", "html", "cssls",  -- 此处将 tsserver 改为 ts_ls
+                "lua_ls", "ts_ls", "html", "cssls", -- 此处将 tsserver 改为 ts_ls
                 "jsonls", "pyright", "rust_analyzer", "clangd"
                 -- 移除了 gopls 如果你不需要 Go 开发
             }
@@ -43,89 +43,88 @@ return {
 
                 -- 显示悬停文档（查看函数/变量的说明）
                 vim.keymap.set('n', '<C-h>', vim.lsp.buf.hover,
-                vim.tbl_extend('force', opts, { desc = '显示悬停文档' })
-            )
+                    vim.tbl_extend('force', opts, { desc = '显示悬停文档' })
+                )
 
-            -- 显示签名帮助（查看函数参数信息）
-            vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help,
-            vim.tbl_extend('force', opts, { desc = '显示签名帮助' })
-        )
+                -- 显示签名帮助（查看函数参数信息）
+                vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help,
+                    vim.tbl_extend('force', opts, { desc = '显示签名帮助' })
+                )
 
-        -- 重命名符号（批量修改变量/函数名）
-        vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename,
-        vim.tbl_extend('force', opts, { desc = '重命名符号' })
-    )
+                -- 重命名符号（批量修改变量/函数名）
+                vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename,
+                    vim.tbl_extend('force', opts, { desc = '重命名符号' })
+                )
 
-    -- 显示代码动作（如修复建议、重构选项）
-    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action,
-    vim.tbl_extend('force', opts, { desc = '显示代码动作' })
-)
+                -- 显示代码动作（如修复建议、重构选项）
+                vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action,
+                    vim.tbl_extend('force', opts, { desc = '显示代码动作' })
+                )
 
--- 查看引用（显示变量/函数被引用的位置）
-vim.keymap.set('n', 'gr', vim.lsp.buf.references,
-vim.tbl_extend('force', opts, { desc = '查看引用' })
-  )
+                -- 查看引用（显示变量/函数被引用的位置）
+                vim.keymap.set('n', 'gr', vim.lsp.buf.references,
+                    vim.tbl_extend('force', opts, { desc = '查看引用' })
+                )
 
-  -- 跳转到下一个错误/警告
-  vim.keymap.set('n', '<leader>]', vim.diagnostic.goto_next,
-  vim.tbl_extend('force', opts, { desc = '跳转到下一个诊断错误' })
-  )
+                -- 跳转到下一个错误/警告
+                vim.keymap.set('n', '<leader>]', vim.diagnostic.goto_next,
+                    vim.tbl_extend('force', opts, { desc = '跳转到下一个诊断错误' })
+                )
 
-  -- 跳转到上一个错误/警告
-  vim.keymap.set('n', '<leader>[', vim.diagnostic.goto_prev,
-  vim.tbl_extend('force', opts, { desc = '跳转到上一个诊断错误' })
-  )
+                -- 跳转到上一个错误/警告
+                vim.keymap.set('n', '<leader>[', vim.diagnostic.goto_prev,
+                    vim.tbl_extend('force', opts, { desc = '跳转到上一个诊断错误' })
+                )
 
-  -- 打开诊断列表（所有错误集中显示）
-  vim.keymap.set('n', '<leader>dl', vim.diagnostic.setloclist,
-  vim.tbl_extend('force', opts, { desc = '打开诊断列表' })
-  )
+                -- 打开诊断列表（所有错误集中显示）
+                vim.keymap.set('n', '<leader>dl', vim.diagnostic.setloclist,
+                    vim.tbl_extend('force', opts, { desc = '打开诊断列表' })
+                )
 
-  -- 显示当前行的诊断信息（悬浮窗口）
-  vim.keymap.set('n', '<leader>dh', vim.diagnostic.open_float,
-  vim.tbl_extend('force', opts, { desc = '显示当前行诊断信息' })
-  )
-end
--- 配置每个服务器
-for _, server in ipairs(servers) do
-    -- 检查服务器是否已安装
-    local installed = false
-    for _, inst in ipairs(mason_lspconfig.get_installed_servers()) do
-        if inst == server then
-            installed = true
-            break
+                -- 显示当前行的诊断信息（悬浮窗口）
+                vim.keymap.set('n', '<leader>dh', vim.diagnostic.open_float,
+                    vim.tbl_extend('force', opts, { desc = '显示当前行诊断信息' })
+                )
+            end
+            -- 配置每个服务器
+            for _, server in ipairs(servers) do
+                -- 检查服务器是否已安装
+                local installed = false
+                for _, inst in ipairs(mason_lspconfig.get_installed_servers()) do
+                    if inst == server then
+                        installed = true
+                        break
+                    end
+                end
+
+                if not installed then
+                    vim.notify("LSP 服务器 " .. server .. " 未安装，请运行 :Mason 安装", vim.log.levels.WARN)
+                end
+
+                -- 配置 Lua 服务器
+                if server == "lua_ls" then
+                    lspconfig[server].setup({
+                        on_attach = on_attach,
+                        capabilities = capabilities,
+                        settings = {
+                            Lua = {
+                                runtime = { version = 'LuaJIT' },
+                                diagnostics = { globals = { 'vim' } },
+                                workspace = {
+                                    library = vim.api.nvim_get_runtime_file("", true),
+                                    checkThirdParty = false
+                                }
+                            }
+                        }
+                    })
+                else
+                    -- 配置其他服务器（包括 ts_ls）
+                    lspconfig[server].setup({
+                        on_attach = on_attach,
+                        capabilities = capabilities
+                    })
+                end
+            end
         end
-    end
-
-    if not installed then
-        vim.notify("LSP 服务器 " .. server .. " 未安装，请运行 :Mason 安装", vim.log.levels.WARN)
-    end
-
-    -- 配置 Lua 服务器
-    if server == "lua_ls" then
-        lspconfig[server].setup({
-            on_attach = on_attach,
-            capabilities = capabilities,
-            settings = {
-                Lua = {
-                    runtime = { version = 'LuaJIT' },
-                    diagnostics = { globals = { 'vim' } },
-                    workspace = {
-                        library = vim.api.nvim_get_runtime_file("", true),
-                        checkThirdParty = false
-                    }
-                }
-            }
-        })
-    else
-        -- 配置其他服务器（包括 ts_ls）
-        lspconfig[server].setup({
-            on_attach = on_attach,
-            capabilities = capabilities
-        })
-    end
-end
-    end
+    }
 }
-}
-

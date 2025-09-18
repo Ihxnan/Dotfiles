@@ -45,14 +45,14 @@ vim.cmd('syntax on')
 
 -- vim-autoformat配置
 -- 设置 clang-format 定义和 C++ 格式化程序
-g.formatdef_clangformat_microsoft = '"clang-format -style microsoft -"'
-g.formatters_cpp = {'clangformat_microsoft'}
+-- g.formatdef_clangformat_microsoft = '"clang-format -style microsoft -"'
+-- g.formatters_cpp = {'clangformat_microsoft'}
 
-g.formatdef_python_black = [[ '"black --quiet -"' ]]
-g.formatters_python = { 'python_black' }
+-- g.formatdef_python_black = [[ '"black --quiet -"' ]]
+-- g.formatters_python = { 'python_black' }
 
 -- 设置 Python 3 主机路径
-g.python3_host_prog = "/usr/bin/python3"
+-- g.python3_host_prog = "/usr/bin/python3"
 
 -- 自动跳转到上次编辑的位置
 vim.api.nvim_create_autocmd('BufReadPost', {

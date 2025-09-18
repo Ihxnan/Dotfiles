@@ -19,10 +19,10 @@ return {
     vim.api.nvim_create_autocmd("FileType", {
       pattern = "markdown",
       callback = function()
-        vim.keymap.set("n", "gmp", "<cmd>MarkdownPreview<CR>", {
-          buffer = true,
-          desc = "goto markdown preview"
-        })
+        -- vim.keymap.set("n", "gmp", "<cmd>MarkdownPreview<CR>", {
+        --   buffer = true,
+        --   desc = "goto markdown preview"
+        -- })
       end
     })
   end,

@@ -17,22 +17,6 @@ return {
     config = function(_, opts)
         require("leetcode").setup(opts)
 
-        -- 配置快捷键
         vim.keymap.set('n', '<leader>l', ':Leet ')
-        -- vim.keymap.set('n', '<leader>lr', '<cmd>Leet run<CR>', {
-            -- desc = 'LeetCode: 运行当前代码'
-        -- })
-        -- vim.keymap.set('n', '<leader>ls', '<cmd>Leet submit<CR>', {
-        --     desc = 'LeetCode: 提交当前代码'
-        -- })
-        -- vim.keymap.set('n', '<leader>lr', '<cmd>Leet reset<CR>', {
-        --     desc = 'LeetCode: 重置当前代码'
-        -- })
-        -- vim.keymap.set('n', '<leader>ll', '<cmd>Leet list<CR>', {
-        --     desc = 'LeetCode: 显示题目列表'
-        -- })
-        -- vim.keymap.set('n', '<leader>lt', '<cmd>Leet test<CR>', {
-        --     desc = 'LeetCode: 测试当前代码'
-        -- })
     end
 }

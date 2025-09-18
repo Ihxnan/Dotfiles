@@ -3,27 +3,55 @@ vim.g.mapleader = " "
 local keymap = vim.keymap
 
 local run_code = function()
-  -- 保存当前文件
-  vim.cmd("w")
+    -- 保存当前文件
+    vim.cmd("w")
 
-  -- 获取当前文件类型
-  local filetype = vim.bo.filetype
+    -- 获取当前文件类型
+    local filetype = vim.bo.filetype
 
-  -- 根据文件类型执行不同命令
-  if filetype == "cpp" or filetype == "c" then
-    -- C/C++ 编译运行命令
-    vim.cmd("split | terminal g++ % && ./a.out && rm -f a.out")
-  elseif filetype == "python" then
-    -- Python 运行命令
-    vim.cmd("split | terminal python3 %")
-  elseif filetype == "cmake" then
-    -- CMake 
-    vim.cmd("split | terminal rm -rf build && mkdir build && cd build && cmake .. && make && ./a.out; $SHELL")
-    vim.cmd("startinsert")
-  else
-    -- 其他文件类型提示
-    print("不支持的文件类型: " .. filetype)
-  end
+    -- 根据文件类型执行不同命令
+    if filetype == "cpp" or filetype == "c" then
+        -- C/C++ 编译运行命令
+        vim.cmd("split | terminal g++ % && ./a.out && rm -f a.out")
+    elseif filetype == "python" then
+        -- Python 运行命令
+        vim.cmd("split | terminal python3 %")
+    elseif filetype == "cmake" then
+        -- CMake
+        vim.cmd("split | terminal rm -rf build && mkdir build && cd build && cmake .. && make && ./a.out; $SHELL")
+        vim.cmd("startinsert")
+    else
+        -- 其他文件类型提示
+        print("不支持的文件类型: " .. filetype)
+    end
+end
+
+local preview_code = function ()
+
+    vim.cmd("w")
+
+    local filetype = vim.bo.filetype
+
+    if filetype == "md" or filetype == "markdown" or filetype == "vimwiki" then
+        vim.cmd("MarkdownPreview")
+    elseif filetype == "html" then
+        vim.cmd("LivePreview start")
+    else
+        print("不支持的文件类型: " .. filetype)
+    end
+end
+
+local close_code = function ()
+
+    local filetype = vim.bo.filetype
+
+     if filetype == "md" or filetype == "markdown" or filetype == "vimwiki" then
+        vim.cmd("MarkdownPreviewStop")
+    elseif filetype == "html" then
+        vim.cmd("LivePreview close")
+    else
+        print("不支持的文件类型: " .. filetype)
+    end
 end
 
 
@@ -46,7 +74,7 @@ keymap.set("v", "ii", "<ESC>")
 keymap.set("n", "<leader>wv", "<C-w>s", { desc = "leader a window vertically"})
 keymap.set("n", "<leader>wh", "<C-w>v", { desc = "leader a window horizontally " })
 keymap.set("n", "<leader>t", ":w<CR><C-w>s:terminal<CR>i", { desc = "leader a terminal with insert mode" })
-keymap.set("n", "<leader>r", run_code, { desc = "run the code" })
+keymap.set("n", "<leader>run", run_code, { desc = "run the code" })
 keymap.set("n", "<F5>", run_code, { desc = "run the code" })
 
 -- go window focus {h, j, k, l}
@@ -80,6 +108,9 @@ keymap.set("n", "gbo", ":BufferLineCloseOthers<CR>", { desc = "buffer delete oth
 
 keymap.set("n", "H", ":BufferLineCyclePre<CR>")
 keymap.set("n", "L", ":BufferLineCycleNext<CR>")
+
+keymap.set("n", "gmp", preview_code)
+keymap.set("n", "gmc", close_code)
 
 
 -- 快速保存

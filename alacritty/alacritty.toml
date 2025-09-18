@@ -6,6 +6,7 @@ opacity=0.5
 [font]
 # normal={family="Noto Sans Mono", style="Regular"}
 normal={family="JetBrains Mono Nerd Font", style="Regular"}
+# normal={family="MesloLGS NF", style="Regular"}
 size=16.0
 
 [colors.bright]
