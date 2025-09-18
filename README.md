@@ -40,7 +40,7 @@ bash ./scripts/debian.sh
     执行 setup 脚本，将配置文件链接到系统对应目录
 
 ```sh
-bash setup.sh
+bash ./scripts/setup.sh
 ```
 ---
 
