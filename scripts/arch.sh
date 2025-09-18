@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+./scripts/arch_only.sh 
+
 sudo pacman -Syyu --noconfirm
 
 sudo pacman -S --noconfirm base-devel
@@ -15,6 +17,7 @@ sudo pacman -S --noconfirm \
     ranger \
     picom \
     npm \
+    paru\
     gcc \
     gdb \
     clang \
