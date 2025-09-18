@@ -14,8 +14,8 @@ esac
 
 # 获取 Spotify 播放状态和信息
 status=$(playerctl -p "$PLAYER" status 2>/dev/null)
-artist=$(playerctl -p "$PLAYER" metadata artist 2>/dev/null)
-title=$(playerctl -p "$PLAYER" metadata title 2>/dev/null)
+artist=$(playerctl -p "$PLAYER" metadata artist 2>/dev/null | cut -c1-30)
+title=$(playerctl -p "$PLAYER" metadata title 2>/dev/null | cut -c1-40)
 
 # 显示内容格式化
 if [ "$status" = "Playing" ]; then
@@ -56,24 +56,10 @@ else
     COLOR="#FFFFFF"
 fi
 
-# 处理中文字符显示 - 使用更安全的方法截取字符串
-# 使用 iconv 处理字符编码，确保正确显示中文
-if [ -n "$artist" ] && [ -n "$title" ]; then
-    # 将文本转换为UTF-8确保编码正确
-    artist_utf8=$(echo "$artist" | iconv -f UTF-8 -t UTF-8//IGNORE)
-    title_utf8=$(echo "$title" | iconv -f UTF-8 -t UTF-8//IGNORE)
-    
-    # 使用更安全的方法限制显示长度
-    artist_display=$(echo "$artist_utf8" | awk '{ if (length($0) > 30) print substr($0, 1, 30)"..."; else print; }')
-    title_display=$(echo "$title_utf8" | awk '{ if (length($0) > 40) print substr($0, 1, 40)"..."; else print; }')
-else
-    artist_display="未知艺术家"
-    title_display="未知标题"
-fi
-
 # 主显示内容（状态栏）
-echo "$icon $artist_display - $title_display"
+echo "$icon $artist - $title"
 # 次要显示内容（悬停提示）
 echo "点击控制 Spotify | $status"
 # 输出颜色值
 echo "$COLOR"
+
