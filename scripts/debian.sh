@@ -4,6 +4,7 @@ sudo apt update -y
 
 sudo add-apt-repository -y ppa:neovim-ppa/unstable
 
+sudo apt upgrade -y
 sudo apt update -y
 
 sudo apt install -y \
