@@ -40,6 +40,8 @@ bash setup.sh
 - **状态栏**：i3blocks 配置（.config/i3blocks/）
 - **compositor**：Picom 配置（.config/picom.conf）
 - **包管理器**：Pacman 配置（pacman.conf）
+    - 不在setup.sh中
+    - `sudo sh ./scripts/pacman_conf.sh`
 
 ---
 
