@@ -9,32 +9,57 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 		dependencies = {
 			"williamboman/mason.nvim",
-			"neovim/nvim-lspconfig",
 		},
 		config = function()
 			-- 加载模块
 			local mlsp_ok, mason_lspconfig = pcall(require, "mason-lspconfig")
-			local lspconfig = require("lspconfig")
-
 			if not mlsp_ok then
 				vim.notify("mason-lspconfig 加载失败", vim.log.levels.ERROR)
 				return
 			end
 
-			-- 只初始化插件，不指定 ensure_installed
+			-- 初始化插件
 			mason_lspconfig.setup({})
 
-			-- 用 ts_ls 替代 tsserver（适配 lspconfig 新版本）
+			-- 获取Mason安装路径
+			local mason_path = vim.fn.glob(vim.fn.stdpath("data") .. "/mason/")
+
+			-- 服务器配置 - 手动指定命令路径，完全不依赖lspconfig
 			local servers = {
-				-- "lua_ls",
-				-- "ts_ls",
-				-- "html",
-				-- "cssls", -- 此处将 tsserver 改为 ts_ls
-				-- "jsonls",
-				-- "pyright",
-				-- "rust_analyzer",
-				-- "clangd",
-				-- 移除了 gopls 如果你不需要 Go 开发
+				lua_ls = {
+					cmd = { mason_path .. "bin/lua-language-server" },
+					settings = {
+						Lua = {
+							runtime = { version = "LuaJIT" },
+							diagnostics = { globals = { "vim" } },
+							workspace = {
+								library = vim.api.nvim_get_runtime_file("", true),
+								checkThirdParty = false,
+							},
+						},
+					}
+				},
+				ts_ls = {
+					cmd = { mason_path .. "bin/typescript-language-server", "--stdio" }
+				},
+				html = {
+					cmd = { mason_path .. "bin/vscode-html-language-server", "--stdio" }
+				},
+				cssls = {
+					cmd = { mason_path .. "bin/vscode-css-language-server", "--stdio" }
+				},
+				jsonls = {
+					cmd = { mason_path .. "bin/vscode-json-language-server", "--stdio" }
+				},
+				pyright = {
+					cmd = { mason_path .. "bin/pyright-langserver", "--stdio" }
+				},
+				rust_analyzer = {
+					cmd = { mason_path .. "bin/rust-analyzer" }
+				},
+				clangd = {
+					cmd = { mason_path .. "bin/clangd" }
+				}
 			}
 
 			-- LSP 能力配置
@@ -43,10 +68,10 @@ return {
 
 			-- on_attach 函数
 			local on_attach = function(client, bufnr)
-				-- 快捷键仅在当前 LSP 关联的缓冲区生效
+				-- 快捷键配置
 				local opts = { buffer = bufnr, noremap = true, silent = true }
 
-				-- 显示悬停文档（查看函数/变量的说明）
+				-- 显示悬停文档
 				vim.keymap.set(
 					"n",
 					"<C-h>",
@@ -54,7 +79,7 @@ return {
 					vim.tbl_extend("force", opts, { desc = "显示悬停文档" })
 				)
 
-				-- 显示签名帮助（查看函数参数信息）
+				-- 显示签名帮助
 				vim.keymap.set(
 					"n",
 					"<C-k>",
@@ -62,7 +87,7 @@ return {
 					vim.tbl_extend("force", opts, { desc = "显示签名帮助" })
 				)
 
-				-- 重命名符号（批量修改变量/函数名）
+				-- 重命名符号
 				vim.keymap.set(
 					"n",
 					"<leader>rn",
@@ -70,7 +95,7 @@ return {
 					vim.tbl_extend("force", opts, { desc = "重命名符号" })
 				)
 
-				-- 显示代码动作（如修复建议、重构选项）
+				-- 显示代码动作
 				vim.keymap.set(
 					"n",
 					"<leader>ca",
@@ -78,7 +103,7 @@ return {
 					vim.tbl_extend("force", opts, { desc = "显示代码动作" })
 				)
 
-				-- 查看引用（显示变量/函数被引用的位置）
+				-- 查看引用
 				vim.keymap.set(
 					"n",
 					"gr",
@@ -86,31 +111,25 @@ return {
 					vim.tbl_extend("force", opts, { desc = "查看引用" })
 				)
 
-				-- 跳转到下一个错误/警告
+				-- 诊断相关快捷键
 				vim.keymap.set(
 					"n",
 					"<leader>]",
 					vim.diagnostic.goto_next,
 					vim.tbl_extend("force", opts, { desc = "跳转到下一个诊断错误" })
 				)
-
-				-- 跳转到上一个错误/警告
 				vim.keymap.set(
 					"n",
 					"<leader>[",
 					vim.diagnostic.goto_prev,
 					vim.tbl_extend("force", opts, { desc = "跳转到上一个诊断错误" })
 				)
-
-				-- 打开诊断列表（所有错误集中显示）
 				vim.keymap.set(
 					"n",
 					"<leader>dl",
 					vim.diagnostic.setloclist,
 					vim.tbl_extend("force", opts, { desc = "打开诊断列表" })
 				)
-
-				-- 显示当前行的诊断信息（悬浮窗口）
 				vim.keymap.set(
 					"n",
 					"<leader>dh",
@@ -118,48 +137,31 @@ return {
 					vim.tbl_extend("force", opts, { desc = "显示当前行诊断信息" })
 				)
 			end
-			-- 配置每个服务器
-			for _, server in ipairs(servers) do
-				-- 检查服务器是否已安装
-				local installed = false
-				for _, inst in ipairs(mason_lspconfig.get_installed_servers()) do
-					if inst == server then
-						installed = true
-						break
-					end
-				end
 
-				if not installed then
+			-- 获取已安装的服务器列表
+			local installed_servers = mason_lspconfig.get_installed_servers()
+
+			-- 为每个已安装的服务器启动LSP
+			for _, server_name in ipairs(installed_servers) do
+				-- 检查服务器是否在我们的配置中
+				if servers[server_name] then
+					-- 合并基础配置和服务器特定配置
+					local config = vim.tbl_extend("force", {
+						name = server_name,
+						on_attach = on_attach,
+						capabilities = capabilities,
+					}, servers[server_name])
+
+					-- 启动LSP服务器
+					vim.lsp.start(config)
+				else
 					vim.notify(
-						"LSP 服务器 " .. server .. " 未安装，请运行 :Mason 安装",
+						"未找到 " .. server_name .. " 的配置，请添加到服务器配置列表中",
 						vim.log.levels.WARN
 					)
-				end
-
-				-- 配置 Lua 服务器
-				if server == "lua_ls" then
-					lspconfig[server].setup({
-						on_attach = on_attach,
-						capabilities = capabilities,
-						settings = {
-							Lua = {
-								runtime = { version = "LuaJIT" },
-								diagnostics = { globals = { "vim" } },
-								workspace = {
-									library = vim.api.nvim_get_runtime_file("", true),
-									checkThirdParty = false,
-								},
-							},
-						},
-					})
-				else
-					-- 配置其他服务器（包括 ts_ls）
-					lspconfig[server].setup({
-						on_attach = on_attach,
-						capabilities = capabilities,
-					})
 				end
 			end
 		end,
 	},
 }
+
