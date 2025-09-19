@@ -28,3 +28,7 @@ sudo apt install -y \
     yarnpkg
 
 chsh -s $(which fish)
+
+bash scripts/setup.sh
+
+sudo reboot

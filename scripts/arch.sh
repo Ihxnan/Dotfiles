@@ -29,3 +29,7 @@ sudo pacman -S --noconfirm \
 sudo npm install -g yarn
 
 chsh -s $(which fish)
+
+bash scripts/setup.sh
+
+sudo reboot

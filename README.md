@@ -22,9 +22,7 @@ git clone https://github.com/Ihxnan/Dotfiles.git
 cd Dotfiles
 ```
 
-2. 安装使用的软件(按系统版本选择)
-
-    根据你的 Linux 发行版（Arch 或 Debian 系列，如 Ubuntu、Deepin 等），执行对应的脚本安装所需软件。
+2. 根据你的 Linux 发行版（Arch 或 Debian 系列，如 Ubuntu、Deepin 等），执行对应的脚本安装所需软件, 并部署配置文件。
 
 - arch 系列系统
 ```sh
@@ -35,13 +33,6 @@ bash ./scripts/arch.sh
 bash ./scripts/debian.sh
 ```
 
-3. 部署配置文件
-
-    执行 setup 脚本，将配置文件链接到系统对应目录
-
-```sh
-bash ./scripts/setup.sh
-```
 ---
 
 ## 注意
