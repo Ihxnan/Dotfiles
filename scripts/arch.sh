@@ -26,7 +26,7 @@ sudo pacman -S --noconfirm \
     ttf-jetbrains-mono \
     ttf-jetbrains-mono-nerd
 
-sudo npm install -g yarn
+sudo npm install -g yarn neofetch
 
 chsh -s $(which fish)
 

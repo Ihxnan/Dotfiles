@@ -25,7 +25,8 @@ sudo apt install -y \
     gdb \
     clangd \
     nodejs \
-    yarnpkg
+    yarnpkg \
+    neofetch
 
 chsh -s $(which fish)
 
