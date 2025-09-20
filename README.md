@@ -56,7 +56,7 @@ bash ./scripts/debian.sh
 - **包管理器**：Pacman 配置（pacman.conf）
     - Arch系发行版可选择
     - `./scripts/arch_only.sh`
-- vscode: vscode配置文件， 如需请复制到vscode
+- **vscode**: vscode配置文件， 如需请复制到vscode
 
 ---
 
