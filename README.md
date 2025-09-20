@@ -38,8 +38,7 @@ bash ./scripts/debian.sh
 ## 注意
 
 1. 软件安装后需补充操作：执行完步骤 2 中的 bash ./scripts/***.sh（*** 为 arch 或 debian）后，脚本最后会提示输入密码，务必完成密码输入，此操作用于修改系统默认 Shell（确保后续配置生效）。
-2. 配置文件安装后需重启：执行完步骤 3 的 bash setup.sh 后，必须重启系统，否则部分配置（如 Shell、窗口管理器等）无法加载。
-3. Neovim 插件自动安装说明：系统重启后，首次打开 nvim（终端文本编辑器）时，lazy.nvim（插件管理器）会自动下载并安装所需插件。若安装过程中出现报错，无需额外操作，关闭并重新打开 nvim 即可完成剩余插件安装。
+2. Neovim 插件自动安装说明：系统重启后，首次打开 nvim（终端文本编辑器）时，lazy.nvim（插件管理器）会自动下载并安装所需插件。若安装过程中出现报错，无需额外操作，关闭并重新打开 nvim 即可完成剩余插件安装。
 
 ---
 
@@ -57,6 +56,8 @@ bash ./scripts/debian.sh
 - **包管理器**：Pacman 配置（pacman.conf）
     - Arch系发行版可选择
     - `./scripts/arch_only.sh`
+- vscode: vscode配置文件， 如需请复制到vscode
+
 ---
 
 ## 脚本说明
