@@ -2,84 +2,93 @@
 
 #### 个人系统配置与工具偏好的配置文件集合
 
-这个仓库包含了我日常使用的各种工具和系统的配置文件，便于在新环境中快速部署个人工作流。
+本仓库整合了日常使用的各类工具与系统配置，旨在实现跨设备快速同步个人工作流，减少新环境下的重复配置成本。
 
 ---
 
 ## 前置要求
-在使用前，请确保系统以安装以下工具：
-- [Git](https://git-scm.com/downloads)
-    - arch 系列系统(一般自带)
-        ```
-        sudo pacman -S git
-        ```
-    - debian 系列系统
-        ```
-        sudo apt install git
-        ```
+在使用前，请确保系统以安装以下工具(用于拉取仓库与执行部署脚本)：
+
+| 工具                                 | 作用               | 安装命令                                                                            |
+| :-:                                  | :-:                | :-:                                                                                 |
+| [Git](https://git-scm.com/downloads) | 版本控制与仓库拉取 | **Arch 系列**: `sudo pacman -S git` <br> **Debian 系列**: `sudo apt install git`    |
 
 ---
 
 ## 安装步骤
 
-1. 克隆仓库到本地
+### 1. 克隆仓库到本地
 
     首先，通过 git 命令将 Dotfiles 仓库克隆到本地计算机，并进入仓库目录（后续所有操作均在此目录下执行）
-   
-```sh
+    
+```bash
+# 推荐：通过 GitHub 官方源拉取（需能访问 GitHub）
 git clone https://github.com/Ihxnan/Dotfiles.git
 cd Dotfiles
+
+# 备用：若无法访问 GitHub，使用镜像源拉取
+# 注意：后续nvim插件大概率装不上
+# git clone https://gitclone.com/github.com/Ihxnan/Dotfiles.git
+# cd Dotfiles
 ```
-    ~~都看到这了肯定能访问github吧~~
-    ~~如果不能访问的话请尝试~~
-    
-    ```
-    git clone https://gitclone.com/Ihxnan/Dotfiles.git
-    cd Dotfiles
-    ```
-    ~~后续nvim插件无法安装~~
 
-2. 根据你的 Linux 发行版（Arch 或 Debian 系列，如 Ubuntu、Deepin 等），执行对应的脚本安装所需软件, 并部署配置文件。
+### 2. 执行对应系统的部署脚本
+根据你的 Linux 发行版（Arch 或 Debian 系列，如 Ubuntu、Deepin 等），执行对应的脚本安装所需软件, 并部署配置文件。
 
-- arch 系列系统
-```sh
+#### Arch 系列系统(Manjaro/EndeavourOS 等)
+```bash
 bash ./scripts/arch.sh
 ```
-- debian 系列系统
-```sh
+#### Debian 系列系统(Ubuntu/Deepin/Pop!_OS 等)
+```bash
 bash ./scripts/debian.sh
 ```
 
 ---
 
-## 注意
+## 关键注意事项
 
-1. 软件安装后需补充操作：执行完步骤 2 中的 bash ./scripts/***.sh（*** 为 arch 或 debian）后，脚本最后会提示输入密码，务必完成密码输入，此操作用于修改系统默认 Shell（确保后续配置生效）。
-2. Neovim 插件自动安装说明：系统重启后，首次打开 nvim（终端文本编辑器）时，lazy.nvim（插件管理器）会自动下载并安装所需插件。若安装过程中出现报错，无需额外操作，关闭并重新打开 nvim 即可完成剩余插件安装。
+### 1. 系统 Shell 切换验证
+脚本执行末尾会提示输入密码，此步骤用于将默认 Shell 切换为配置中指定的版本（确保后续 Fish 等 Shell 配置生效），请务必完成密码验证。
 
----
+### 2. Neovim 插件自动安装
+- 系统重启后，**首次启动 Neovim**（终端输入 `nvim`）时，插件管理器 `lazy.nvim` 会自动下载并安装所有插件。
+- 若安装过程中出现短暂报错（如网络波动导致部分插件下载中断），无需手动处理，关闭并重新打开 Neovim 即可继续完成剩余插件安装。
 
-## 包含的配置
-
-- **窗口管理器**：i3 配置（.i3/config）
-- **终端**：Alacritty 配置（.config/alacritty/）
-- **Shell**：Fish 配置（.config/fish/）
-- **编辑器**：
-  - Neovim 配置（.config/nvim/）
-  - Vim 配置（.vimrc）
-- **文件管理器**：Ranger 配置（.config/ranger/）
-- **状态栏**：i3blocks 配置（.config/i3blocks/）
-- **compositor**：Picom 配置（.config/picom.conf）
-- **包管理器**：Pacman 配置（pacman.conf）
-    - Arch系发行版可选择
-    - `./scripts/arch_only.sh`
-- **vscode**: vscode配置文件， 如需请复制到vscode
+### 3. 镜像源拉取后的插件修复（若使用备用克隆地址）
+若通过 `gitclone.com` 镜像源拉取仓库，可能导致 Neovim 插件无法正常安装，可执行以下命令重置 Neovim 配置：
+```bash
+rm -rf ~/.config/nvim/
+```
 
 ---
 
-## 脚本说明
 
-- `scripts/backup`：备份当前系统中的配置文件到仓库
-- `scripts/submit`：提交更新到远程仓库
+## 配置内容清单
+本仓库包含以下工具的完整配置，部署后即可直接使用个人定制化环境：
+
+| 工具类型         | 具体工具       | 配置文件路径                  | 功能说明                     |
+|------------------|----------------|-----------------------------|------------------------------|
+| 窗口管理器       | i3             | `.i3/config`                | 高效键盘流窗口管理配置       |
+| 终端模拟器       | Alacritty      | `.config/alacritty/`        | 高性能终端，含配色与快捷键   |
+| Shell            | Fish           | `.config/fish/`             | 自动补全、高亮的友好 Shell  |
+| 代码编辑器       | Neovim         | `.config/nvim/`             | 全 Lua 配置的 IDE 级编辑器   |
+| 代码编辑器       | Vim            | `.vimrc`                    | 轻量 Vim 基础配置            |
+| 文件管理器       | Ranger         | `.config/ranger/`           | 终端可视化文件管理工具       |
+| 状态栏           | i3blocks       | `.config/i3blocks/`         | i3 窗口管理器配套状态栏      |
+| 窗口 compositor  | Picom          | `.config/picom.conf`        | 窗口透明与动画效果配置       |
+| 包管理器         | Pacman         | `Arch/pacman.conf`          | Arch 系软件源与安装优化配置  |
+| 代码编辑器       | VS Code        | `vscode`                    | 含插件列表、快捷键与配色方案 |
+
+---
+
+## 脚本功能说明
+仓库内 `scripts` 目录提供辅助脚本，便于日常维护配置：
+
+| 脚本路径          | 功能                          | 使用场景                     |
+|-------------------|-------------------------------|------------------------------|
+| `scripts/backup`  | 备份当前系统配置到仓库        | 本地修改配置后，同步到仓库   |
+| `scripts/submit`  | 提交本地更新到远程 GitHub 仓库 | 配置优化后，推送更新到云端   |
+| `scripts/arch_only.sh` | 仅部署 Arch 系 Pacman 配置    | 无需完整部署，仅更新包管理器 |
 
 ---
