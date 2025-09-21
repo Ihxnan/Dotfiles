@@ -27,7 +27,7 @@ sudo pacman -S --noconfirm \
     ttf-jetbrains-mono-nerd \
     paru
 
-sudo npm install -g yarn neofetch
+sudo npm install -g --force yarn neofetch
 
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -36,6 +36,6 @@ bash scripts/setup
 
 bash scripts/install_software
 
-chsh -s $(which fish)
+sudo chsh -s "$(which fish)" "$USER"
 
 sudo reboot
