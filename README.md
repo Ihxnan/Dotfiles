@@ -25,6 +25,7 @@
 1. 克隆仓库到本地
 
     首先，通过 git 命令将 Dotfiles 仓库克隆到本地计算机，并进入仓库目录（后续所有操作均在此目录下执行）
+   
     ~~都看到这了肯定能访问github吧~~
 ```sh
 git clone https://github.com/Ihxnan/Dotfiles.git
