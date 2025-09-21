@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# -------------------------- Safety Check --------------------------
+# Paru MUST NOT run as root (it handles sudo privileges internally for system packages)
+if [ "$EUID" -eq 0 ]; then
+    echo "ERROR: This script should NOT be run as root."
+    echo "Please run it as a regular user with sudo access."
+    exit 1
+fi
+
+# -------------------------- System Update --------------------------
+echo -e "\n=== Updating Paru database and system packages ==="
+# -Syu: Sync package databases (-S), update system (-u), refresh AUR databases (-y)
+# --noconfirm: Auto-confirm all prompts (remove this for manual confirmation)
+paru -Syu --noconfirm
+
+# -------------------------- Define Packages --------------------------
+# List the AUR/official packages you want to install (replace with your targets)
+declare -a PACKAGES=(
+    "spotify"
+    "playerctl"
+    "clash-geoip"
+    "clash-verge-rev"
+    "mihomo"
+    "python-pynvim"
+)
+
+# -------------------------- Install Packages --------------------------
+echo -e "\n=== Starting installation of specified packages ==="
+# -S: Install packages from official repos/AUR
+# --noconfirm: Auto-confirm (optional but useful for automation)
+# "${PACKAGES[@]}": Expand the package list array
+paru -S --noconfirm "${PACKAGES[@]}"
+
+# -------------------------- Verify Installation --------------------------
+# Check if the last command (paru -S) succeeded (exit code 0 = success)
+if [ $? -eq 0 ]; then
+    echo -e "\n✅ All packages installed successfully!"
+else
+    echo -e "\n❌ Error occurred during installation."
+    exit 1
+fi
