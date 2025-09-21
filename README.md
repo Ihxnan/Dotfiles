@@ -9,6 +9,14 @@
 ## 前置要求
 在使用前，请确保系统以安装以下工具：
 - [Git](https://git-scm.com/downloads)
+    - arch 系列系统(一般自带)
+        ```
+        sudo pacman -S git
+        ```
+    - debian 系列系统
+        ```
+        sudo apt install git
+        ```
 
 ---
 
