@@ -38,11 +38,11 @@ cd Dotfiles
 
 #### Arch 系列系统(Manjaro/EndeavourOS 等)
 ```bash
-bash ./scripts/arch.sh
+bash ./scripts/arch
 ```
 #### Debian 系列系统(Ubuntu/Deepin/Pop!_OS 等)
 ```bash
-bash ./scripts/debian.sh
+bash ./scripts/debian
 ```
 
 ---
@@ -93,6 +93,6 @@ rm -rf ~/.config/nvim/ ~/.vimrc
 |------------------------|--------------------------------|------------------------------|
 | `scripts/backup`       | 备份当前系统配置到仓库         | 本地修改配置后，同步到仓库   |
 | `scripts/submit`       | 提交本地更新到远程 GitHub 仓库 | 配置优化后，推送更新到云端   |
-| `scripts/arch_only.sh` | 仅部署 Arch 系 Pacman 配置     | 无需完整部署，仅更新包管理器 |
+| `scripts/arch_only`    | 仅部署 Arch 系 Pacman 配置     | 无需完整部署，仅更新包管理器 |
 
 ---
