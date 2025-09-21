@@ -56,10 +56,13 @@ bash ./scripts/debian.sh
 - 系统重启后，**首次启动 Neovim**（终端输入 `nvim`）时，插件管理器 `lazy.nvim` 会自动下载并安装所有插件。
 - 若安装过程中出现短暂报错（如网络波动导致部分插件下载中断），无需手动处理，关闭并重新打开 Neovim 即可继续完成剩余插件安装。
 
-### 3. 镜像源拉取后的插件恢复（若使用备用克隆地址）
+### 3. vim 插件安装
+打开vim, 输入`:PlugInstal`安装插件
+
+### 4. 镜像源拉取后的插件恢复（若使用备用克隆地址）
 若通过 `gitclone.com` 镜像源拉取仓库，可能导致 Neovim 插件无法正常安装，可执行以下命令重置 Neovim 配置：
 ```bash
-rm -rf ~/.config/nvim/
+rm -rf ~/.config/nvim/ ~/.vimrc
 ```
 
 ---
