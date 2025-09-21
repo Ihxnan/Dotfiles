@@ -30,15 +30,14 @@
 git clone https://github.com/Ihxnan/Dotfiles.git
 cd Dotfiles
 ```
-    ~~都看到这了肯定能访问github吧
-    如果不能访问的话请尝试
+    ~~都看到这了肯定能访问github吧~~
+    ~~如果不能访问的话请尝试~~
     
     ```
     git clone https://gitclone.com/Ihxnan/Dotfiles.git
     cd Dotfiles
     ```
-    后续nvim插件无法安装
-    ~~
+    ~~后续nvim插件无法安装~~
 
 2. 根据你的 Linux 发行版（Arch 或 Debian 系列，如 Ubuntu、Deepin 等），执行对应的脚本安装所需软件, 并部署配置文件。
 
