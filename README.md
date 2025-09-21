@@ -19,17 +19,18 @@
 
 ### 1. 克隆仓库到本地
 
-    首先，通过 git 命令将 Dotfiles 仓库克隆到本地计算机，并进入仓库目录（后续所有操作均在此目录下执行）
+首先，通过 git 命令将 Dotfiles 仓库克隆到本地计算机，并进入仓库目录（后续所有操作均在此目录下执行）
     
+#### 推荐：通过 GitHub 官方源拉取（需能访问 GitHub）
 ```bash
-# 推荐：通过 GitHub 官方源拉取（需能访问 GitHub）
 git clone https://github.com/Ihxnan/Dotfiles.git
 cd Dotfiles
-
-# 备用：若无法访问 GitHub，使用镜像源拉取
-# 注意：后续nvim插件大概率装不上
-# git clone https://gitclone.com/github.com/Ihxnan/Dotfiles.git
-# cd Dotfiles
+```
+#### 备用：若无法访问 GitHub，使用镜像源拉取
+#### 注意：后续nvim插件大概率装不上
+```bash
+git clone https://gitclone.com/github.com/Ihxnan/Dotfiles.git
+cd Dotfiles
 ```
 
 ### 2. 执行对应系统的部署脚本
