@@ -38,11 +38,11 @@ cd Dotfiles
 
 #### Arch 系列系统(Manjaro/EndeavourOS 等)
 ```bash
-bash ./scripts/arch
+sudo bash ./scripts/arch
 ```
 #### Debian 系列系统(Ubuntu/Deepin/Pop!_OS 等)
 ```bash
-bash ./scripts/debian
+sudo bash ./scripts/debian
 ```
 
 ---
