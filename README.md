@@ -50,7 +50,7 @@ bash scripts/debian
 ## 关键注意事项
 
 ### 1. Neovim 插件自动安装
-- 系统重启后，**首次启动 Neovim**（终端输入 `nvim`）时，插件管理器 `lazy.nvim` 会自动下载并安装所有插件。
+- 系统重启后(安装脚本执行晚会自动重启)，**首次启动 Neovim**（终端输入 `nvim`）时，插件管理器 `lazy.nvim` 会自动下载并安装所有插件。
 - 若安装过程中出现短暂报错（如网络波动导致部分插件下载中断），无需手动处理，关闭并重新打开 Neovim 即可继续完成剩余插件安装。
 
 ### 2. vim 插件安装
@@ -61,6 +61,9 @@ bash scripts/debian
 ```bash
 rm -rf ~/.config/nvim/ ~/.vimrc
 ```
+
+### 4. Arch 系列
+paru 更新时会要求输入用户密码
 
 ---
 
