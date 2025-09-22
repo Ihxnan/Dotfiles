@@ -12,6 +12,7 @@ fi
 echo -e "\n=== Updating Paru database and system packages ==="
 # -Syu: Sync package databases (-S), update system (-u), refresh AUR databases (-y)
 # --noconfirm: Auto-confirm all prompts (remove this for manual confirmation)
+paru -Syu --noconfirm
 
 # -------------------------- Define Packages --------------------------
 # List the AUR/official packages you want to install (replace with your targets)
@@ -30,7 +31,7 @@ echo -e "\n=== Starting installation of specified packages ==="
 # -S: Install packages from official repos/AUR
 # --noconfirm: Auto-confirm (optional but useful for automation)
 # "${PACKAGES[@]}": Expand the package list array
-sudo paru -S --noconfirm "${PACKAGES[@]}"
+paru -S --noconfirm "${PACKAGES[@]}"
 
 # -------------------------- Verify Installation --------------------------
 # Check if the last command (paru -S) succeeded (exit code 0 = success)
