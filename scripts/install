@@ -30,7 +30,7 @@ echo -e "\n=== Starting installation of specified packages ==="
 # -S: Install packages from official repos/AUR
 # --noconfirm: Auto-confirm (optional but useful for automation)
 # "${PACKAGES[@]}": Expand the package list array
-paru -S --noconfirm "${PACKAGES[@]}"
+sudo paru -S --noconfirm "${PACKAGES[@]}"
 
 # -------------------------- Verify Installation --------------------------
 # Check if the last command (paru -S) succeeded (exit code 0 = success)
