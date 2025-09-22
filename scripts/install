@@ -23,6 +23,7 @@ declare -a PACKAGES=(
     "clash-verge-rev"
     "mihomo"
     "python-pynvim"
+    "neofetch"
 )
 
 # -------------------------- Install Packages --------------------------

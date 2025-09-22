@@ -38,28 +38,25 @@ cd Dotfiles
 
 #### Arch 系列系统(Manjaro/EndeavourOS 等)
 ```bash
-sudo bash ./scripts/arch
+bash ./scripts/arch
 ```
 #### Debian 系列系统(Ubuntu/Deepin/Pop!_OS 等)
 ```bash
-sudo bash ./scripts/debian
+bash ./scripts/debian
 ```
 
 ---
 
 ## 关键注意事项
 
-### 1. 系统 Shell 切换验证
-脚本执行末尾会提示输入密码，此步骤用于将默认 Shell 切换为配置中指定的版本（确保后续 Fish 等 Shell 配置生效），请务必完成密码验证。
-
-### 2. Neovim 插件自动安装
+### 1. Neovim 插件自动安装
 - 系统重启后，**首次启动 Neovim**（终端输入 `nvim`）时，插件管理器 `lazy.nvim` 会自动下载并安装所有插件。
 - 若安装过程中出现短暂报错（如网络波动导致部分插件下载中断），无需手动处理，关闭并重新打开 Neovim 即可继续完成剩余插件安装。
 
-### 3. vim 插件安装
+### 2. vim 插件安装
 打开vim, 输入`:PlugInstal`安装插件
 
-### 4. 镜像源拉取后的插件恢复（若使用备用克隆地址）
+### 3. 镜像源拉取后的插件恢复（若使用备用克隆地址）
 若通过 `gitclone.com` 镜像源拉取仓库，可能导致 Neovim 插件无法正常安装，可执行以下命令重置 Neovim 配置：
 ```bash
 rm -rf ~/.config/nvim/ ~/.vimrc
