@@ -34,7 +34,7 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 
 bash scripts/setup
 
-bash scripts/install_software
+bash scripts/install
 
 sudo chsh -s "$(which fish)" "$USER"
 
