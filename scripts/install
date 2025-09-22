@@ -12,7 +12,6 @@ fi
 echo -e "\n=== Updating Paru database and system packages ==="
 # -Syu: Sync package databases (-S), update system (-u), refresh AUR databases (-y)
 # --noconfirm: Auto-confirm all prompts (remove this for manual confirmation)
-paru -Syu --noconfirm
 
 # -------------------------- Define Packages --------------------------
 # List the AUR/official packages you want to install (replace with your targets)
