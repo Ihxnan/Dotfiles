@@ -95,3 +95,5 @@ vim.api.nvim_set_hl(0, "BufferLineBufferVisible", { bg = "NONE" })
 vim.api.nvim_set_hl(0, "BufferLineBufferSelected", { bg = "NONE" })
 vim.api.nvim_set_hl(0, "BufferLineFill", { bg = "NONE" })
 vim.api.nvim_set_hl(0, "BufferLineTabPageFill", { bg = "NONE" })
+
+vim.o.autochdir = true
