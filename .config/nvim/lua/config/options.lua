@@ -96,4 +96,5 @@ vim.api.nvim_set_hl(0, "BufferLineBufferSelected", { bg = "NONE" })
 vim.api.nvim_set_hl(0, "BufferLineFill", { bg = "NONE" })
 vim.api.nvim_set_hl(0, "BufferLineTabPageFill", { bg = "NONE" })
 
+-- 工作目录自动切换
 vim.o.autochdir = true
