@@ -20,6 +20,9 @@ local run_code = function()
 		-- CMake
 		vim.cmd("split | terminal rm -rf build && mkdir build && cd build && cmake .. && make && ./a.out; $SHELL")
 		vim.cmd("startinsert")
+    elseif filetype == "sh" then
+        -- sh
+        vim.cmd("split | terminal sh %")
 	else
 		-- 其他文件类型提示
 		print("不支持的文件类型: " .. filetype)
