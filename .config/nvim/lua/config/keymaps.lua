@@ -36,7 +36,7 @@ local run_code_with_data = function()
 	-- 根据文件类型执行不同命令
 	if filetype == "cpp" or filetype == "c" then
 		-- C/C++ 编译运行命令
-		vim.cmd("split | terminal g++ -O3 % && ./a.out < data.txt && rm -f a.out")
+		vim.cmd("split | terminal g++ -O3 % && ./a.out < data && rm -f a.out")
 	else
 		-- 其他文件类型提示
 		print("不支持的文件类型: " .. filetype)
@@ -44,8 +44,6 @@ local run_code_with_data = function()
 end
 
 local preview_code = function()
-	vim.cmd("<ESC>")
-
 	vim.cmd("w")
 
 	local filetype = vim.bo.filetype
@@ -94,6 +92,7 @@ keymap.set("n", "<leader>wh", "<C-w>v", { desc = "leader a window horizontally "
 keymap.set("n", "<leader>t", ":w<CR><C-w>s:terminal<CR>i", { desc = "leader a terminal with insert mode" })
 keymap.set("n", "rc", run_code, { desc = "run the code" })
 keymap.set("n", "rd", run_code_with_data, { desc = "run the code with the data" })
+keymap.set("n", "dp", "<C-w>s:terminal<CR>idp", { desc = "run the code with the data" })
 keymap.set("n", "<F5>", run_code, { desc = "run the code" })
 
 -- go window focus {h, j, k, l}
@@ -125,9 +124,11 @@ keymap.set("n", "gbl", ":bnext<CR>", { desc = "goto buffer right" })
 keymap.set("n", "gbd", ":bdelete<CR>", { desc = "buffer delete" })
 keymap.set("n", "gbo", ":BufferLineCloseOthers<CR>", { desc = "buffer delete other" })
 
+-- bufferline
 keymap.set("n", "H", ":BufferLineCyclePre<CR>")
 keymap.set("n", "L", ":BufferLineCycleNext<CR>")
 
+-- 浏览器预览
 keymap.set("n", "gmp", preview_code)
 keymap.set("n", "gmc", close_code)
 
