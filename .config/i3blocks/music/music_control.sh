@@ -23,12 +23,12 @@ if [ "$status" = "Playing" ]; then
 elif [ "$status" = "Paused" ]; then
     icon="▶"
 else
-    echo "🎵 未播放音乐"
-    echo "🎵 未播放音乐"
+    # echo "🎵 未播放音乐"
+    # echo "🎵 未播放音乐"
     # 错误状态颜色
-    echo "#FF9800"
+    # echo "#FF9800"
     # 清除颜色缓存
-    rm -f "$COLOR_FILE"
+    # rm -f "$COLOR_FILE"
     exit 0
 fi
 

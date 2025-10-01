@@ -11,6 +11,8 @@ sources_config=(
     ~/.config/nvim/
     ~/.config/ranger/
     ~/.config/picom.conf
+    ~/.config/mpd/
+    ~/.config/ncmpcpp
 )
 
 sources_home=(

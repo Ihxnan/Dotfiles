@@ -101,15 +101,15 @@ bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 
-# 使用方向键控制Spotify
+# 使用方向键控制
 # 上箭头：播放/暂停
-bindsym $mod+Up exec --no-startup-id playerctl -p spotify play-pause
+bindsym $mod+Up exec ~/bin/music_toggle
 # 下箭头：播放/暂停
-bindsym $mod+Down exec --no-startup-id playerctl -p spotify play-pause
+bindsym $mod+Down exec ~/bin/music_toggle
 # 左箭头：上一曲
-bindsym $mod+Left exec --no-startup-id playerctl -p spotify previous
+bindsym $mod+Left exec ~/bin/music_prev
 # 右箭头：下一曲
-bindsym $mod+Right exec --no-startup-id playerctl -p spotify next      
+bindsym $mod+Right exec ~/bin/music_next
 
 # move focused window
 bindsym $mod+Shift+h move left

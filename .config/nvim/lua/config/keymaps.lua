@@ -18,7 +18,7 @@ local run_code = function()
 		vim.cmd("split | terminal python3 %")
 	elseif filetype == "cmake" then
 		-- CMake
-		vim.cmd("split | terminal rm -rf build && mkdir build && cd build && cmake .. && make && ./a.out; $SHELL")
+		vim.cmd("split | terminal rm -rf build && mkdir build && cd build && cmake .. && make; $SHELL")
 		vim.cmd("startinsert")
     elseif filetype == "sh" then
         -- sh
