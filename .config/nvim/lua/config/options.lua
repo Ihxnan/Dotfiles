@@ -40,51 +40,40 @@ vim.g.loaded_netrwPlugin = 1
 
 -- vimwiki设置
 opt.compatible = false
-vim.cmd('filetype plugin on')
-vim.cmd('syntax on')
-
--- vim-autoformat配置
--- 设置 clang-format 定义和 C++ 格式化程序
--- g.formatdef_clangformat_microsoft = '"clang-format -style microsoft -"'
--- g.formatters_cpp = {'clangformat_microsoft'}
-
--- g.formatdef_python_black = [[ '"black --quiet -"' ]]
--- g.formatters_python = { 'python_black' }
-
--- 设置 Python 3 主机路径
--- g.python3_host_prog = "/usr/bin/python3"
+vim.cmd("filetype plugin on")
+vim.cmd("syntax on")
 
 -- 自动跳转到上次编辑的位置
-vim.api.nvim_create_autocmd('BufReadPost', {
-    pattern = '*',
-    callback = function()
-        local mark = vim.api.nvim_buf_get_mark(0, '"')
-        local lcount = vim.api.nvim_buf_line_count(0)
-        if mark[1] > 0 and mark[1] <= lcount then
-            pcall(vim.api.nvim_win_set_cursor, 0, mark)
-        end
-    end,
+vim.api.nvim_create_autocmd("BufReadPost", {
+	pattern = "*",
+	callback = function()
+		local mark = vim.api.nvim_buf_get_mark(0, '"')
+		local lcount = vim.api.nvim_buf_line_count(0)
+		if mark[1] > 0 and mark[1] <= lcount then
+			pcall(vim.api.nvim_win_set_cursor, 0, mark)
+		end
+	end,
 })
 
 vim.api.nvim_create_autocmd("ColorScheme", {
-  pattern = "*",
-  callback = function()
-    -- 已有的其他配置...
-    vim.api.nvim_set_hl(0, "NeoTreeNormal", { bg = "NONE" })
-    vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { bg = "NONE" })
-    vim.api.nvim_set_hl(0, "NeoTreeFloatBackground", { bg = "#1e1e1e" })
-    
-    vim.api.nvim_set_hl(0, "LeetCodeInfo", { bg = "NONE" })
-    vim.api.nvim_set_hl(0, "LeetCodeQuestion", { bg = "NONE" })
-    vim.api.nvim_set_hl(0, "LeetCodePopup", { bg = "#1e1e1e" })
-    
-    -- Bufferline 透明背景设置
-    vim.api.nvim_set_hl(0, "BufferLineBackground", { bg = "NONE" })         -- 未激活缓冲区背景
-    vim.api.nvim_set_hl(0, "BufferLineBufferVisible", { bg = "NONE" })      -- 可见但未激活缓冲区背景
-    vim.api.nvim_set_hl(0, "BufferLineBufferSelected", { bg = "NONE" })     -- 选中缓冲区背景（通常会保留前景色突出显示）
-    vim.api.nvim_set_hl(0, "BufferLineFill", { bg = "NONE" })               -- Bufferline 填充区域
-    vim.api.nvim_set_hl(0, "BufferLineTabPageFill", { bg = "NONE" })        -- 标签页填充区域
-  end,
+	pattern = "*",
+	callback = function()
+		-- 已有的其他配置...
+		vim.api.nvim_set_hl(0, "NeoTreeNormal", { bg = "NONE" })
+		vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { bg = "NONE" })
+		vim.api.nvim_set_hl(0, "NeoTreeFloatBackground", { bg = "#1e1e1e" })
+
+		vim.api.nvim_set_hl(0, "LeetCodeInfo", { bg = "NONE" })
+		vim.api.nvim_set_hl(0, "LeetCodeQuestion", { bg = "NONE" })
+		vim.api.nvim_set_hl(0, "LeetCodePopup", { bg = "#1e1e1e" })
+
+		-- Bufferline 透明背景设置
+		vim.api.nvim_set_hl(0, "BufferLineBackground", { bg = "NONE" }) -- 未激活缓冲区背景
+		vim.api.nvim_set_hl(0, "BufferLineBufferVisible", { bg = "NONE" }) -- 可见但未激活缓冲区背景
+		vim.api.nvim_set_hl(0, "BufferLineBufferSelected", { bg = "NONE" }) -- 选中缓冲区背景（通常会保留前景色突出显示）
+		vim.api.nvim_set_hl(0, "BufferLineFill", { bg = "NONE" }) -- Bufferline 填充区域
+		vim.api.nvim_set_hl(0, "BufferLineTabPageFill", { bg = "NONE" }) -- 标签页填充区域
+	end,
 })
 
 -- 立即应用所有设置
