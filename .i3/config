@@ -104,8 +104,6 @@ bindsym $mod+l focus right
 # 使用方向键控制
 # 上箭头：播放/暂停
 bindsym $mod+Up exec ~/bin/music_toggle
-# 下箭头：播放/暂停
-bindsym $mod+Down exec ~/bin/music_toggle
 # 左箭头：上一曲
 bindsym $mod+Left exec ~/bin/music_prev
 # 右箭头：下一曲
@@ -155,6 +153,9 @@ bindsym $mod+a focus parent
 
 # move the currently focused window to the scratchpad
 bindsym $mod+Shift+minus move scratchpad
+
+# 快捷键绑定：按下 $mod+Shift+m 时，执行我们的脚本
+bindsym $mod+Down exec --no-startup-id ~/bin/start-ncmpcpp
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
@@ -252,6 +253,12 @@ for_window [class="Xfburn"] floating enable
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
+
+# 窗口规则：当标题为 "ncmpcpp-term" 的窗口出现时
+# 1. 先将其设为浮动模式
+# 2. 然后将其移动到右上角
+# 3. 最后将其大小设置为 800像素宽，600像素高
+for_window [title="ncmpcpp-term"] floating enable, move position 2090px 50px, resize set 470px 232px
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -403,8 +410,8 @@ bindsym $mod+m bar mode toggle
 #############################
 
 # Set inner/outer gaps
-gaps inner 14
-gaps outer -2
+gaps inner 5
+gaps outer -5
 
 # Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
 # gaps inner|outer current|all set|plus|minus <px>
