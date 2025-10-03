@@ -27,7 +27,9 @@ sudo pacman -S --noconfirm \
     ttf-jetbrains-mono-nerd \
     paru \
     yarn \
-    mpv
+    mpv \
+    mpd \
+    ncmpcpp
 
 
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
