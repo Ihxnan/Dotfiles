@@ -155,7 +155,7 @@ bindsym $mod+a focus parent
 bindsym $mod+Shift+minus move scratchpad
 
 # 快捷键绑定：按下 $mod+Shift+m 时，执行我们的脚本
-bindsym $mod+Down exec --no-startup-id ~/bin/start-ncmpcpp
+bindsym $mod+Down exec --no-startup-id ~/bin/mpd_toggle
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
@@ -258,7 +258,12 @@ for_window [urgent=latest] focus
 # 1. 先将其设为浮动模式
 # 2. 然后将其移动到右上角
 # 3. 最后将其大小设置为 800像素宽，600像素高
-for_window [title="ncmpcpp-term"] floating enable, move position 2090px 50px, resize set 470px 232px
+for_window [title="ncmpcpp-term"] floating enable, move position 2060px 50px, resize set 500px 300px
+# --- NCMPCPP 浮动置顶窗口规则 ---
+for_window [class="^ncmpcpp-float$"] floating enable
+for_window [class="^ncmpcpp-float$"] sticky enable
+for_window [class="^ncmpcpp-float$"] border pixel 1
+
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
