@@ -35,7 +35,7 @@ target_home=(
     ~/.vimrc
     ~/.i3/
     ~/.zshrc
-    .p10k.zsh
+    ~/.p10k.zsh
 )
 
 rm -rf "${target_config[@]}"
