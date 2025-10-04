@@ -7,11 +7,16 @@ sources_config=(
     .config/nvim/
     .config/ranger/
     .config/picom.conf
+    ~/.config/mpd/
+    ~/.config/ncmpcpp
+    ~/.config/dunst/
 )
 
 sources_home=(
     .vimrc
     .i3/
+    .zshrc
+    .p10k.zsh
 )
 
 target_config=(
@@ -21,11 +26,16 @@ target_config=(
     ~/.config/nvim/
     ~/.config/ranger/
     ~/.config/picom.conf
+    ~/.config/mpd/
+    ~/.config/ncmpcpp
+    ~/.config/dunst/
 )
 
 target_home=(
     ~/.vimrc
     ~/.i3/
+    ~/.zshrc
+    .p10k.zsh
 )
 
 rm -rf "${target_config[@]}"
