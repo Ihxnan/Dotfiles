@@ -29,7 +29,9 @@ sudo pacman -S --noconfirm \
     yarn \
     mpv \
     mpd \
-    ncmpcpp
+    ncmpcpp \
+    variety \
+    openssh 
 
 
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
