@@ -26,10 +26,10 @@
 git clone https://github.com/Ihxnan/Dotfiles.git
 cd Dotfiles
 ```
-#### 备用：若无法访问 GitHub，使用镜像源拉取
+#### 备用：若无法访问 GitHub，使用Gitee
 #### 注意：后续nvim插件大概率装不上
 ```bash
-git clone https://gitclone.com/github.com/Ihxnan/Dotfiles.git
+git clone https://gitee.com/Ihxnan/Dotfiles.git
 cd Dotfiles
 ```
 
@@ -72,7 +72,7 @@ paru 更新时会要求输入用户密码
 本仓库包含以下工具的完整配置，部署后即可直接使用个人定制化环境：
 
 | 工具类型        | 具体工具  | 配置文件路径         | 功能说明                     |
-|-----------------|-----------|----------------------|------------------------------|
+| --------------- | --------- | -------------------- | ---------------------------- |
 | 窗口管理器      | i3        | `.i3/config`         | 高效键盘流窗口管理配置       |
 | 终端模拟器      | Alacritty | `.config/alacritty/` | 高性能终端，含配色与快捷键   |
 | Shell           | Fish      | `.config/fish/`      | 自动补全、高亮的友好 Shell   |
@@ -83,6 +83,9 @@ paru 更新时会要求输入用户密码
 | 窗口 compositor | Picom     | `.config/picom.conf` | 窗口透明与动画效果配置       |
 | 包管理器        | Pacman    | `Arch/pacman.conf`   | Arch 系软件源与安装优化配置  |
 | 代码编辑器      | VS Code   | `vscode`             | 含插件列表、快捷键与配色方案 |
+| 音乐播放器      | mpd       | `.config/mpd`        | mpd基础配置                  |
+| mpd服务器       | ncmpcpp   | `.config/ncmpcpp`    | ncmpcpp快捷键和基础配置      |
+
 
 ---
 
