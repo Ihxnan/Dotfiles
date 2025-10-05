@@ -91,7 +91,7 @@ targets_home=(
     "$HOME/.i3"
     "$HOME/.zshrc"
     "$HOME/.p10k.zsh"
-    "$HOME/.oh-my-zsh/custom/"
+    "$HOME/.oh-my-zsh/custom"
 )
 
 # ========================= 2. 工具函数（复用逻辑） =========================
