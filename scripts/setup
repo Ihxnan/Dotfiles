@@ -53,8 +53,8 @@ targets_home=(
     "$HOME/.oh-my-zsh/custom"
 )
 
-# ========================= 2. 工具函数（新增 2 个关键优化） =========================
-# 函数1：创建软链接 + 自动修复脚本权限（解决 devicons.py [noperm] 问题）
+# ========================= 2. 工具函数 =========================
+# 函数1：创建软链接 + 自动修复脚本权限
 create_symlink() {
     local src="$1"
     local dest="$2"
@@ -85,8 +85,7 @@ create_symlink() {
     ln -s "$src_abs" "$dest"
     echo -e "✅ 软链接创建成功：\n  源：$src_abs\n  目标：$dest"
 
-    # 【新增优化1：自动修复脚本文件权限】
-    # 对 .py/.sh 等可执行脚本，自动添加「所有者读+执行权限」，避免 [noperm]
+    # 对 .py/.sh 等可执行脚本，自动添加「所有者读+执行权限」
     if [[ "$src_abs" =~ \.(py|sh)$ ]]; then
         # 先检查当前权限，无执行权限时才修改
         if [ ! -x "$src_abs" ]; then
@@ -96,7 +95,7 @@ create_symlink() {
     fi
 }
 
-# 函数2：校验 Oh My Zsh 安装（原逻辑保留）
+# 函数2：校验 Oh My Zsh 安装
 check_oh_my_zsh() {
     local omz_dir="$HOME/.oh-my-zsh"
     if [ ! -d "$omz_dir" ]; then
@@ -116,7 +115,7 @@ check_oh_my_zsh() {
     fi
 }
 
-# 函数3：检测 Neovim 软链接循环风险（【新增优化2：预防 VimWiki 错误】）
+# 函数3：检测 Neovim 软链接循环风险
 check_nvim_symlink_cycle() {
     local nvim_src="${sources_config[3]}"  # sources_config 中第4个元素是 .config/nvim
     local nvim_dest="${targets_config[3]}" # targets_config 中第4个元素是 ~/.config/nvim
@@ -138,7 +137,7 @@ check_nvim_symlink_cycle() {
     fi
 }
 
-# ========================= 3. 主执行流程（新增风险检测步骤） =========================
+# ========================= 3. 主执行流程 =========================
 # 步骤1：校验 Oh My Zsh
 echo -e "=== 第一步：校验 Oh My Zsh 环境 ==="
 if [[ " ${sources_home[@]} " =~ " custom " ]]; then
@@ -163,11 +162,8 @@ for i in "${!sources_home[@]}"; do
     echo -e "------------------------"
 done
 
-# ========================= 4. 配置完成提示（补充风险提示） =========================
+# ========================= 4. 配置完成提示 =========================
 echo -e "\n🎉 所有软链接配置完成！"
-echo -e "\n📌 关键提示："
-echo -e "  1. 若使用 VimWiki，且 Neovim 是目录级软链接，建议拆分为子目录/文件级（参考步骤2提示）；"
-echo -e "  2. Ranger devicons.py 等脚本已自动修复权限，若仍显示 [noperm]，可手动执行：chmod u+rx ~/.config/ranger/devicons.py；"
-echo -e "\n📌 生效指南（同前）："
+echo -e "\n📌 生效指南："
 echo -e "  - 终端应用：重启终端；i3：Mod + Shift + R；Picom/Dunst：pkill 进程后重启；"
 echo -e "  - 修改配置：直接编辑 ~/Github/Dotfiles/ 下的源文件，目标路径自动同步。"
