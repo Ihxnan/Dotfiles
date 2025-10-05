@@ -4,14 +4,10 @@
 set -euo pipefail
 
 # --- 1. 环境准备 ---
-echo ">>> 准备工作目录..."
 mkdir -p ~/WorkSpace/Algorithm
 
-sudo rm /etc/pacman.conf
-sudo rm /etc/paru.conf
-
-sudo cp ./Arch/pacman.conf /etc/pacman.conf
-sudo cp ./Arch/paru.conf /etc/paru.conf
+sudo cp -f ./Arch/pacman.conf /etc/pacman.conf
+sudo cp -f ./Arch/paru.conf /etc/paru.conf
 
 # --- 2. 系统更新与基础软件安装 ---
 echo ">>> 同步并升级系统软件包..."
