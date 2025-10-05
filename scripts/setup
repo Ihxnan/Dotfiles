@@ -1,145 +1,173 @@
 #!/usr/bin/env bash
 set -euo pipefail  # 遇到错误立即退出，避免配置混乱
 
-# ========================= 1. 配置路径定义（核心修改：统一相对路径） =========================
-# 关键前提：
-# - 脚本需与以下源配置目录/文件放在同一级（如 ~/Github/Dotfiles/ 目录）
-# - sources_* 数组：全部为【相对路径】（对应脚本所在目录下的文件/目录）
-# - targets_* 数组：全部为【绝对路径】，目录末尾无 /（避免 ln -s 报错）
-# - 两组数组【顺序必须完全对应】，确保源→目标一一匹配
+# ========================= 1. 配置路径定义（保持核心逻辑，补充注释） =========================
+# 前提：脚本与源配置在同一目录（如 ~/Github/Dotfiles/）
+# 规则：sources_* 相对路径，targets_* 绝对路径（目录无 /），数组顺序一一对应
 
-# 1.1 ~/.config/ 下的配置（覆盖 alacritty/fish/ranger 等核心应用）
+# 1.1 ~/.config/ 下的配置（Ranger 拆分为核心文件，排除 __pycache__）
 sources_config=(
-    ".config/alacritty"   # 相对路径：脚本所在目录下的 .config/alacritty
-    ".config/fish"        # 相对路径：脚本所在目录下的 .config/fish
-    ".config/i3blocks"    # 相对路径：脚本所在目录下的 .config/i3blocks
-    ".config/nvim"        # 相对路径：脚本所在目录下的 .config/nvim
-    ".config/ranger"      # 相对路径：脚本所在目录下的 .config/ranger（含 rc.conf/commands.py 等）
-    ".config/picom.conf"  # 相对路径：脚本所在目录下的 .config/picom.conf
-    ".config/mpd"         # 【修改】删除 ~ 绝对路径，改为相对路径
-    ".config/ncmpcpp"     # 【修改】删除 ~ 绝对路径，改为相对路径
-    ".config/dunst"       # 【修改】删除 ~ 绝对路径，改为相对路径
+    ".config/alacritty"
+    ".config/fish"
+    ".config/i3blocks"
+    ".config/nvim"                # Neovim 配置（若遇软链接循环，需拆分为子目录/文件）
+    ".config/ranger/rc.conf"
+    ".config/ranger/commands.py"
+    ".config/ranger/devicons.py"  # Ranger 图标脚本（需确保权限）
+    ".config/ranger/plugins"
+    ".config/ranger/scope.sh"
+    ".config/picom.conf"
+    ".config/mpd"
+    ".config/ncmpcpp"
+    ".config/dunst"
 )
 targets_config=(
-    "$HOME/.config/alacritty"  # 目标：系统 alacritty 配置目录（无 /）
-    "$HOME/.config/fish"       # 目标：系统 fish 配置目录（无 /）
-    "$HOME/.config/i3blocks"   # 目标：系统 i3blocks 配置目录（无 /）
-    "$HOME/.config/nvim"       # 目标：系统 nvim 配置目录（无 /）
-    "$HOME/.config/ranger"     # 目标：系统 ranger 配置目录（无 /，覆盖所有核心文件）
-    "$HOME/.config/picom.conf" # 目标：系统 picom 配置文件
-    "$HOME/.config/mpd"        # 目标：系统 mpd 配置目录（无 /）
-    "$HOME/.config/ncmpcpp"    # 目标：系统 ncmpcpp 配置目录（无 /）
-    "$HOME/.config/dunst"      # 目标：系统 dunst 配置目录（无 /）
+    "$HOME/.config/alacritty"
+    "$HOME/.config/fish"
+    "$HOME/.config/i3blocks"
+    "$HOME/.config/nvim"
+    "$HOME/.config/ranger/rc.conf"
+    "$HOME/.config/ranger/commands.py"
+    "$HOME/.config/ranger/devicons.py"
+    "$HOME/.config/ranger/plugins"
+    "$HOME/.config/ranger/scope.sh"
+    "$HOME/.config/picom.conf"
+    "$HOME/.config/mpd"
+    "$HOME/.config/ncmpcpp"
+    "$HOME/.config/dunst"
 )
 
-# 1.2 ~/ 根目录下的配置（含 Oh My Zsh custom 目录）
+# 1.2 ~/ 根目录下的配置（含 Zsh custom 目录）
 sources_home=(
-    ".vimrc"               # 相对路径：脚本所在目录下的 .vimrc
-    ".i3"                  # 相对路径：脚本所在目录下的 .i3 目录
-    ".zshrc"               # 相对路径：脚本所在目录下的 .zshrc
-    ".p10k.zsh"            # 相对路径：脚本所在目录下的 .p10k.zsh
-    "custom"               # 相对路径：脚本所在目录下的 custom 目录（Zsh 插件/主题）
+    ".vimrc"
+    ".i3"
+    ".zshrc"
+    ".p10k.zsh"
+    "custom"  # Zsh 插件/主题目录
 )
 targets_home=(
-    "$HOME/.vimrc"                # 目标：系统 .vimrc 文件
-    "$HOME/.i3"                   # 目标：系统 .i3 配置目录（无 /）
-    "$HOME/.zshrc"                # 目标：系统 .zshrc 文件
-    "$HOME/.p10k.zsh"             # 目标：系统 .p10k.zsh 文件
-    "$HOME/.oh-my-zsh/custom"     # 【优化】删除末尾 /，避免 ln -s 报错
+    "$HOME/.vimrc"
+    "$HOME/.i3"
+    "$HOME/.zshrc"
+    "$HOME/.p10k.zsh"
+    "$HOME/.oh-my-zsh/custom"
 )
 
-# ========================= 2. 工具函数（新增 Oh My Zsh 校验，规避失败） =========================
-# 函数1：创建软链接（保留原逻辑，补充详细日志）
+# ========================= 2. 工具函数（新增 2 个关键优化） =========================
+# 函数1：创建软链接 + 自动修复脚本权限（解决 devicons.py [noperm] 问题）
 create_symlink() {
     local src="$1"
     local dest="$2"
-    local src_abs  # 源路径的绝对路径（避免相对路径失效）
-    local dest_dir # 目标路径的父目录
+    local src_abs
+    local dest_dir
 
-    # 2.1 校验源路径是否存在（避免软链接指向空）
+    # 2.1 校验源路径
     if [ ! -e "$src" ]; then
-        echo -e "⚠️  源路径不存在，跳过配置：$src"
+        echo -e "⚠️  源路径不存在，跳过：$src"
         return 1
     fi
-
-    # 2.2 转换为绝对路径（确保软链接指向稳定）
     src_abs=$(realpath "$src")
 
-    # 2.3 确保目标父目录存在（如 ~/.config/ 被删除时自动重建）
+    # 2.2 确保目标父目录存在
     dest_dir=$(dirname "$dest")
     if [ ! -d "$dest_dir" ]; then
-        echo -e "📂 自动创建目标父目录：$dest_dir"
+        echo -e "📂 创建目标父目录：$dest_dir"
         mkdir -p "$dest_dir"
     fi
 
-    # 2.4 处理已存在的目标（删除旧软链接/文件，避免冲突）
+    # 2.3 处理旧目标
     if [ -e "$dest" ] || [ -L "$dest" ]; then
-        if [ -L "$dest" ]; then
-            echo -e "🔗 删除旧软链接：$dest"
-        else
-            echo -e "🗑️  删除旧文件/目录：$dest"
-        fi
+        [ -L "$dest" ] && echo -e "🔗 删除旧软链接：$dest" || echo -e "🗑️  删除旧文件/目录：$dest"
         rm -rf "$dest"
     fi
 
-    # 2.5 核心：创建软链接
+    # 2.4 创建软链接
     ln -s "$src_abs" "$dest"
-    echo -e "✅ 软链接创建成功：\n  源文件：$src_abs\n  目标路径：$dest"
-}
+    echo -e "✅ 软链接创建成功：\n  源：$src_abs\n  目标：$dest"
 
-# 函数2：校验 Oh My Zsh 是否安装（避免 custom 目录软链接失败）
-check_oh_my_zsh() {
-    local omz_dir="$HOME/.oh-my-zsh"
-    # 若 Oh My Zsh 未安装，提示用户选择
-    if [ ! -d "$omz_dir" ]; then
-        echo -e "\n⚠️  检测到 Oh My Zsh 未安装（目录：$omz_dir 不存在）"
-        read -p "是否立即安装 Oh My Zsh？(y/n，默认 n)：" install_choice
-        install_choice=${install_choice:-n}  # 默认选择 n
-
-        if [ "$install_choice" = "y" ] || [ "$install_choice" = "Y" ]; then
-            # 执行 Oh My Zsh 官方安装脚本（无交互模式）
-            echo -e "🔧 正在安装 Oh My Zsh..."
-            sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-            echo -e "✅ Oh My Zsh 安装完成！"
-        else
-            # 若不安装，从数组中移除 custom 相关配置，避免后续失败
-            echo -e "ℹ️  跳过 Oh My Zsh custom 目录配置，后续可手动安装后重新运行脚本"
-            sources_home=("${sources_home[@]::${#sources_home[@]}-1}")  # 删除最后一个元素（custom）
-            targets_home=("${targets_home[@]::${#targets_home[@]}-1}")  # 删除最后一个元素（custom 目标）
+    # 【新增优化1：自动修复脚本文件权限】
+    # 对 .py/.sh 等可执行脚本，自动添加「所有者读+执行权限」，避免 [noperm]
+    if [[ "$src_abs" =~ \.(py|sh)$ ]]; then
+        # 先检查当前权限，无执行权限时才修改
+        if [ ! -x "$src_abs" ]; then
+            chmod u+rx "$src_abs"
+            echo -e "🔧 自动修复脚本权限：$src_abs（添加 u+rx 权限）"
         fi
     fi
 }
 
-# ========================= 3. 主执行流程（新增 Oh My Zsh 校验步骤） =========================
+# 函数2：校验 Oh My Zsh 安装（原逻辑保留）
+check_oh_my_zsh() {
+    local omz_dir="$HOME/.oh-my-zsh"
+    if [ ! -d "$omz_dir" ]; then
+        echo -e "\n⚠️  Oh My Zsh 未安装（$omz_dir 不存在）"
+        read -p "是否立即安装？(y/n，默认 n)：" install_choice
+        install_choice=${install_choice:-n}
+
+        if [ "$install_choice" = "y" ]; then
+            echo -e "🔧 安装 Oh My Zsh..."
+            sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+            echo -e "✅ Oh My Zsh 安装完成"
+        else
+            echo -e "ℹ️  跳过 custom 目录配置"
+            sources_home=("${sources_home[@]::${#sources_home[@]}-1}")
+            targets_home=("${targets_home[@]::${#targets_home[@]}-1}")
+        fi
+    fi
+}
+
+# 函数3：检测 Neovim 软链接循环风险（【新增优化2：预防 VimWiki 错误】）
+check_nvim_symlink_cycle() {
+    local nvim_src="${sources_config[3]}"  # sources_config 中第4个元素是 .config/nvim
+    local nvim_dest="${targets_config[3]}" # targets_config 中第4个元素是 ~/.config/nvim
+
+    # 若 Neovim 是目录级软链接，提示循环风险（针对 VimWiki 场景）
+    if [ -d "$nvim_src" ] && [ "$(basename "$nvim_src")" = "nvim" ]; then
+        echo -e "\n⚠️  检测到 Neovim 是目录级软链接，可能导致 VimWiki 循环错误！"
+        echo -e "   解决方案：将 Neovim 拆分为子目录/文件级软链接，参考命令："
+        echo -e "   1. rm $nvim_dest"
+        echo -e "   2. mkdir -p $nvim_dest"
+        echo -e "   3. ln -s ~/Github/Dotfiles/.config/nvim/init.lua $nvim_dest/init.lua"
+        echo -e "   4. ln -s ~/Github/Dotfiles/.config/nvim/lua $nvim_dest/lua"
+        read -p "是否继续当前配置？(y/n，默认 y)：" continue_choice
+        continue_choice=${continue_choice:-y}
+        if [ "$continue_choice" = "n" ]; then
+            echo -e "❌ 退出脚本，请先调整 Neovim 配置方式"
+            exit 1
+        fi
+    fi
+}
+
+# ========================= 3. 主执行流程（新增风险检测步骤） =========================
+# 步骤1：校验 Oh My Zsh
 echo -e "=== 第一步：校验 Oh My Zsh 环境 ==="
-# 只有当 sources_home 包含 custom 时才校验（避免无相关配置时多余操作）
 if [[ " ${sources_home[@]} " =~ " custom " ]]; then
     check_oh_my_zsh
 fi
 
-echo -e "\n=== 第二步：配置 ~/.config/ 目录软链接（含 Ranger） ==="
-# 遍历 .config 下的配置，创建软链接
+# 步骤2：检测 Neovim 软链接循环风险（新增）
+echo -e "\n=== 第二步：检测 Neovim 软链接循环风险 ==="
+check_nvim_symlink_cycle
+
+# 步骤3：配置 ~/.config/ 软链接
+echo -e "\n=== 第三步：配置 ~/.config/ 目录软链接 ==="
 for i in "${!sources_config[@]}"; do
     create_symlink "${sources_config[$i]}" "${targets_config[$i]}"
     echo -e "------------------------"
 done
 
-echo -e "\n=== 第三步：配置 ~/ 根目录软链接（含 Zsh/Vim） ==="
-# 遍历 ~ 下的配置，创建软链接
+# 步骤4：配置 ~/ 根目录软链接
+echo -e "\n=== 第四步：配置 ~/ 根目录软链接 ==="
 for i in "${!sources_home[@]}"; do
     create_symlink "${sources_home[$i]}" "${targets_home[$i]}"
     echo -e "------------------------"
 done
 
-# ========================= 4. 配置完成提示（优化：补充应用生效方式） =========================
-echo -e "\n🎉 所有软链接配置已完成！"
-echo -e "\n📌 配置生效指南："
-echo -e "  1. 终端类应用（Alacritty/Fish/Zsh/Ranger）：关闭当前终端，重新打开即可生效"
-echo -e "  2. i3 窗口管理器：按下 Mod + Shift + R 重新加载配置"
-echo -e "  3. 桌面组件（Picom/Dunst）：执行命令重启服务："
-echo -e "     - Picom：pkill picom && picom &"
-echo -e "     - Dunst：pkill dunst && dunst &"
-echo -e "\n💡 后续维护提示："
-echo -e "  - 修改配置：直接编辑脚本所在目录下的源文件（如 .config/ranger/rc.conf），目标路径会自动同步"
-echo -e "  - 删除配置：仅需删除目标路径的软链接（如 rm ~/.config/ranger），源文件不会被删除"
-echo -e "  - 新增配置：在 sources_* 和 targets_* 数组中添加对应路径，重新运行脚本即可"
+# ========================= 4. 配置完成提示（补充风险提示） =========================
+echo -e "\n🎉 所有软链接配置完成！"
+echo -e "\n📌 关键提示："
+echo -e "  1. 若使用 VimWiki，且 Neovim 是目录级软链接，建议拆分为子目录/文件级（参考步骤2提示）；"
+echo -e "  2. Ranger devicons.py 等脚本已自动修复权限，若仍显示 [noperm]，可手动执行：chmod u+rx ~/.config/ranger/devicons.py；"
+echo -e "\n📌 生效指南（同前）："
+echo -e "  - 终端应用：重启终端；i3：Mod + Shift + R；Picom/Dunst：pkill 进程后重启；"
+echo -e "  - 修改配置：直接编辑 ~/Github/Dotfiles/ 下的源文件，目标路径自动同步。"

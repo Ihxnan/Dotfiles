@@ -5,7 +5,7 @@ return {
     -- Vimwiki的基本设置
     vim.g.vimwiki_list = {
       {
-        path = '~/WorkSpace/Blog/',  -- Wiki文件存放路径
+        path = '~/vimwiki/',  -- Wiki文件存放路径
         syntax = 'markdown',  -- 使用markdown语法
         ext = '.md',          -- 文件扩展名
       }
