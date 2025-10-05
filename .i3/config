@@ -25,6 +25,9 @@ font xft:URWGothic-Book 11
 # Use Mouse+$mod to drag floating windows
 floating_modifier $mod
 
+# Set eDP-1-1 as the primary display
+exec --no-startup-id xrandr --output eDP-1-1 --primary
+
 # always start
 # 透明渲染
 exec_always picom
