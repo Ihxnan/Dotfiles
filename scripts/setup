@@ -84,12 +84,14 @@ sources_home=(
     ".i3"
     ".zshrc"
     ".p10k.zsh"
+    "custom"
 )
 targets_home=(
     "$HOME/.vimrc"
     "$HOME/.i3"
     "$HOME/.zshrc"
     "$HOME/.p10k.zsh"
+    "$HOME/.oh-my-zsh/custom/"
 )
 
 # ========================= 2. 工具函数（复用逻辑） =========================
