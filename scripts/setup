@@ -1,45 +1,156 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
+#
+# sources_config=(
+#     .config/alacritty/
+#     .config/fish/
+#     .config/i3blocks/
+#     .config/nvim/
+#     .config/ranger/
+#     .config/picom.conf
+#     ~/.config/mpd/
+#     ~/.config/ncmpcpp
+#     ~/.config/dunst/
+# )
+#
+# sources_home=(
+#     .vimrc
+#     .i3/
+#     .zshrc
+#     .p10k.zsh
+# )
+#
+# target_config=(
+#     ~/.config/alacritty/
+#     ~/.config/fish/
+#     ~/.config/i3blocks/
+#     ~/.config/nvim/
+#     ~/.config/ranger/
+#     ~/.config/picom.conf
+#     ~/.config/mpd/
+#     ~/.config/ncmpcpp
+#     ~/.config/dunst/
+# )
+#
+# target_home=(
+#     ~/.vimrc
+#     ~/.i3/
+#     ~/.zshrc
+#     ~/.p10k.zsh
+# )
+#
+# rm -rf "${target_config[@]}"
+# rm -rf "${target_home[@]}"
+#
+# cp -r "${sources_config[@]}" ~/.config/
+# cp -r "${sources_home[@]}" ~/
+#
 
+#!/usr/bin/env bash
+set -euo pipefail  # 遇到错误立即退出，避免配置混乱
+
+# ========================= 1. 配置路径定义 =========================
+# 注意：
+# - sources_* 数组：源配置文件/目录的【相对路径】（假设脚本与这些配置在同一目录）
+# - targets_* 数组：目标路径（即配置最终要生效的路径，使用绝对路径 ~）
+# - 确保 sources 与 targets 数组的【顺序完全对应】
+
+# 1.1 对应 ~/.config/ 下的配置（目录/文件）
 sources_config=(
-    .config/alacritty/
-    .config/fish/
-    .config/i3blocks/
-    .config/nvim/
-    .config/ranger/
-    .config/picom.conf
-    ~/.config/mpd/
-    ~/.config/ncmpcpp
-    ~/.config/dunst/
+    ".config/alacritty"
+    ".config/fish"
+    ".config/i3blocks"
+    ".config/nvim"
+    ".config/ranger"
+    ".config/picom.conf"
+    ".config/mpd"
+    ".config/ncmpcpp"
+    ".config/dunst"
+)
+targets_config=(
+    "$HOME/.config/alacritty"
+    "$HOME/.config/fish"
+    "$HOME/.config/i3blocks"
+    "$HOME/.config/nvim"
+    "$HOME/.config/ranger"
+    "$HOME/.config/picom.conf"
+    "$HOME/.config/mpd"
+    "$HOME/.config/ncmpcpp"
+    "$HOME/.config/dunst"
 )
 
+# 1.2 对应 ~/ 根目录下的配置（文件/目录）
 sources_home=(
-    .vimrc
-    .i3/
-    .zshrc
-    .p10k.zsh
+    ".vimrc"
+    ".i3"
+    ".zshrc"
+    ".p10k.zsh"
+)
+targets_home=(
+    "$HOME/.vimrc"
+    "$HOME/.i3"
+    "$HOME/.zshrc"
+    "$HOME/.p10k.zsh"
 )
 
-target_config=(
-    ~/.config/alacritty/
-    ~/.config/fish/
-    ~/.config/i3blocks/
-    ~/.config/nvim/
-    ~/.config/ranger/
-    ~/.config/picom.conf
-    ~/.config/mpd/
-    ~/.config/ncmpcpp
-    ~/.config/dunst/
-)
+# ========================= 2. 工具函数（复用逻辑） =========================
+# 函数：创建软链接（参数1：源路径，参数2：目标路径）
+create_symlink() {
+    local src="$1"
+    local dest="$2"
+    local src_abs  # 源路径的绝对路径
+    local dest_dir # 目标路径的父目录
 
-target_home=(
-    ~/.vimrc
-    ~/.i3/
-    ~/.zshrc
-    ~/.p10k.zsh
-)
+    # 2.1 校验源路径是否存在
+    if [ ! -e "$src" ]; then
+        echo -e "⚠️  源路径不存在，跳过：$src"
+        return 1
+    fi
 
-rm -rf "${target_config[@]}"
-rm -rf "${target_home[@]}"
+    # 2.2 获取源路径的绝对路径（避免相对路径软链接失效）
+    src_abs=$(realpath "$src")
 
-cp -r "${sources_config[@]}" ~/.config/
-cp -r "${sources_home[@]}" ~/
+    # 2.3 确保目标路径的父目录存在（如 ~/.config/ 已存在，但子目录可能被删除）
+    dest_dir=$(dirname "$dest")
+    if [ ! -d "$dest_dir" ]; then
+        echo -e "📂 创建目标父目录：$dest_dir"
+        mkdir -p "$dest_dir"
+    fi
+
+    # 2.4 处理已存在的目标路径（删除旧文件/软链接）
+    if [ -e "$dest" ] || [ -L "$dest" ]; then
+        # 区分“软链接”和“实际文件/目录”，给出不同提示
+        if [ -L "$dest" ]; then
+            echo -e "🔗 删除旧软链接：$dest"
+        else
+            echo -e "🗑️  删除旧文件/目录：$dest"
+        fi
+        rm -rf "$dest"
+    fi
+
+    # 2.5 创建软链接
+    ln -s "$src_abs" "$dest"
+    echo -e "✅ 已创建软链接：\n  源：$src_abs\n  目标：$dest"
+}
+
+# ========================= 3. 执行软链接创建 =========================
+echo -e "=== 开始配置 .config/ 目录下的软链接 ==="
+# 遍历 sources_config 与 targets_config（通过索引对应）
+for i in "${!sources_config[@]}"; do
+    src="${sources_config[$i]}"
+    dest="${targets_config[$i]}"
+    create_symlink "$src" "$dest"
+    echo -e "------------------------"
+done
+
+echo -e "\n=== 开始配置 ~/ 根目录下的软链接 ==="
+# 遍历 sources_home 与 targets_home
+for i in "${!sources_home[@]}"; do
+    src="${sources_home[$i]}"
+    dest="${targets_home[$i]}"
+    create_symlink "$src" "$dest"
+    echo -e "------------------------"
+done
+
+# ========================= 4. 配置完成提示 =========================
+echo -e "\n🎉 所有软链接配置完成！"
+echo -e "提示：\n  1. 修改源配置文件后，目标路径会自动同步（无需重新运行脚本）\n  2. 若需删除配置，直接删除目标路径的软链接即可（源文件不会被删除）"

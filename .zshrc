@@ -16,7 +16,6 @@ export ZSH="$HOME/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="powerlevel10k/powerlevel10k"
-
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -207,16 +206,5 @@ alias q=exit
 alias s=neofetch
 
 # 增强python
-alias pt=ptpython
 alias ip=ipython
 
-# ==============================================
-# 启动时执行的命令 (Startup Commands)
-# ==============================================
-
-# 仅在终端启动时将命令提示符推至底部
-# 注：当前配置为注释状态，取消注释即可启用
-# printf '\n%.0s' {1..100}: 通过输出 100 个空行将提示符推到底部
-# printf '\n%.0s' {1..100}
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rm -rf .config .i3 .vimrc
+rm -rf .config .i3 .vimrc .zshrc .p10k.zsh custom
 
 mkdir .config
 

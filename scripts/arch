@@ -22,6 +22,18 @@ sudo pacman -Syyu --noconfirm
 echo ">>> 使用 pacman 安装所有软件包..."
 sudo pacman -S --noconfirm \
     base-devel \
+    qemu-full \
+    edk2-ovmf \
+    dnsmasq \
+    vde2 \
+    bridge-utils \
+    openbsd-netcat \
+    virt-manager \
+    virt-viewer \
+    libvirt \
+    libvirt-dbus \
+    ebtables \
+    iptables-nft \
     neovim \
     curl \
     i3-wm \
@@ -50,7 +62,7 @@ sudo pacman -S --noconfirm \
     fcitx5-chinese-addons \
     paru
 
-# --- 5. 配置 Oh My Zsh 和插件 (假设主要使用 Zsh) ---
+# --- 3. 配置 Oh My Zsh 和插件 ---
 echo ">>> 安装 Oh My Zsh..."
 # 检查是否已安装
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
@@ -70,12 +82,60 @@ git clone --depth=1 https://github.com/Aloxaf/fzf-tab $plugins_dir/fzf-tab || tr
 echo ">>> 安装 Powerlevel10k 主题..."
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k || true
 
-# --- 6. 配置 vim ---
+# --- 4. 配置 vim ---
 echo ">>> 安装 Vim-Plug..."
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-# --- 7. 执行剩余外部配置脚本 ---
+# --- 5. paru安装非官方软件
+
+# -------------------------- Safety Check --------------------------
+# Paru MUST NOT run as root (it handles sudo privileges internally for system packages)
+if [ "$EUID" -eq 0 ]; then
+    echo "ERROR: This script should NOT be run as root."
+    echo "Please run it as a regular user with sudo access."
+    exit 1
+fi
+
+# -------------------------- System Update --------------------------
+echo -e "\n=== Updating Paru database and system packages ==="
+# -Syu: Sync package databases (-S), update system (-u), refresh AUR databases (-y)
+# --noconfirm: Auto-confirm all prompts (remove this for manual confirmation)
+paru -Syu --noconfirm
+
+# -------------------------- Define Packages --------------------------
+# List the AUR/official packages you want to install (replace with your targets)
+declare -a PACKAGES=(
+    "spotify"
+    "playerctl"
+    "clash-geoip"
+    "clash-verge-rev"
+    "mihomo"
+    "python-pynvim"
+    "neofetch"
+    "chromium"
+    "pycharm-professional"
+)
+
+# -------------------------- Install Packages --------------------------
+echo -e "\n=== Starting installation of specified packages ==="
+# -S: Install packages from official repos/AUR
+# --noconfirm: Auto-confirm (optional but useful for automation)
+# "${PACKAGES[@]}": Expand the package list array
+paru -S --noconfirm "${PACKAGES[@]}"
+
+# -------------------------- Verify Installation --------------------------
+# Check if the last command (paru -S) succeeded (exit code 0 = success)
+if [ $? -eq 0 ]; then
+    echo -e "\n✅ All packages installed successfully!"
+else
+    echo -e "\n❌ Error occurred during installation."
+    exit 1
+fi
+
+# --- paru end
+
+# --- 5. 执行剩余外部配置脚本 ---
 if [ -f "./scripts/setup" ]; then
     echo ">>> 执行 setup 脚本..."
     bash ./scripts/setup
@@ -83,14 +143,7 @@ else
     echo "警告: ./scripts/setup 脚本不存在，已跳过。"
 fi
 
-if [ -f "./scripts/install" ]; then
-    echo ">>> 执行 install 脚本..."
-    bash ./scripts/install
-else
-    echo "警告: ./scripts/install 脚本不存在，已跳过。"
-fi
-
-# --- 8. 配置输入法 (Fcitx5) ---
+# --- 6. 配置输入法 (Fcitx5) ---
 echo ">>> 配置 Fcitx5 环境变量..."
 # 写入 /etc/environment 以确保全局生效
 sudo tee -a /etc/environment > /dev/null <<EOT
@@ -100,10 +153,9 @@ XMODIFIERS=@im=fcitx
 SDL_IM_MODULE=fcitx
 GLFW_IM_MODULE=ibus
 EOT
-# 建议在桌面启动时也启动 fcitx5
 
-# --- 9. 设置默认 Shell 为 Zsh ---
-echo ">>> 将默认 Shell 设置为 Zsh..."
+# --- 7. 设置默认 Shell 为 fish ---
+echo ">>> 将默认 Shell 设置为 fish..."
 sudo chsh -s "$(which fish)" "$USER"
 
 echo ">>> 所有配置已完成！请重启系统以应用所有更改。"
