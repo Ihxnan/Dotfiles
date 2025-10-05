@@ -12,7 +12,7 @@ sudo cp -f ./Arch/paru.conf /etc/paru.conf
 # --- 2. 系统更新与基础软件安装 ---
 echo ">>> 同步并升级系统软件包..."
 sudo pacman -Syyu --noconfirm
-
+sudo pacman -Rns --noconfirm iptables || true # 即使 iptables 未安装，也要继续执行
 echo ">>> 使用 pacman 安装所有软件包..."
 sudo pacman -S --noconfirm \
     base-devel \
