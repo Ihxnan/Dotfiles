@@ -52,8 +52,6 @@ sudo pacman -S --noconfirm \
     mpc \
     ncmpcpp \
     openssh \
-    fcitx5-im \
-    fcitx5-chinese-addons \
     paru
 
 # --- 3. 配置 Oh My Zsh 和插件 ---
