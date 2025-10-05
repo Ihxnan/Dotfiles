@@ -7,13 +7,11 @@ set -euo pipefail
 echo ">>> 准备工作目录..."
 mkdir -p ~/WorkSpace/Algorithm
 
-# 检查并执行外部脚本
-if [ -f "./scripts/arch_only" ]; then
-    echo ">>> 执行 arch_only 脚本..."
-    bash ./scripts/arch_only
-else
-    echo "警告: ./scripts/arch_only 脚本不存在，已跳过。"
-fi
+sudo rm /etc/pacman.conf
+sudo rm /etc/paru.conf
+
+sudo cp ./Arch/pacman.conf /etc/pacman.conf
+sudo cp ./Arch/paru.conf /etc/paru.conf
 
 # --- 2. 系统更新与基础软件安装 ---
 echo ">>> 同步并升级系统软件包..."
