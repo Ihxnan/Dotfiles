@@ -3,6 +3,12 @@ command=~/.config/i3blocks/music/music_control.sh
 interval=2
 signal=1
 
+[MPD]
+command=~/.config/i3blocks/music/mpd_control.sh
+interval=2
+signal=1
+
+
 [TIME_DATE]
 command=~/.config/i3blocks/time/time.sh
 interval=1
