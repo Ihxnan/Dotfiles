@@ -1,0 +1,15 @@
+# 排除所有 Python 字节码缓存文件
+__pycache__/
+*.py[cod]
+*$py.class
+
+# （可选）补充其他常见缓存文件排除规则，避免后续类似问题
+# Ranger 缓存
+.config/ranger/cache/
+.config/ranger/history
+# Neovim 缓存
+.config/nvim/.cache/
+.config/nvim/undo/
+# 终端缓存
+*.swp  # Vim 临时文件
+*.swo  # Vim 临时文件
