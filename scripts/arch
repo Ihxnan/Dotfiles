@@ -1,22 +1,54 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
+# 确保脚本在遇到错误时立即退出
+set -euo pipefail
+
+# --- 1. 环境准备 ---
+echo ">>> 准备工作目录..."
 mkdir -p ~/WorkSpace/Algorithm
 
-./scripts/arch_only 
+# 检查并执行外部脚本
+if [ -f "./scripts/arch_only" ]; then
+    echo ">>> 执行 arch_only 脚本..."
+    bash ./scripts/arch_only
+else
+    echo "警告: ./scripts/arch_only 脚本不存在，已跳过。"
+fi
 
+# --- 2. 系统更新与基础软件安装 ---
+echo ">>> 同步并升级系统软件包..."
 sudo pacman -Syyu --noconfirm
 
+echo ">>> 安装 base-devel 和其他核心软件包..."
 sudo pacman -S --noconfirm base-devel
 
-sudo pacman -S --noconfirm \
+# --- 3. 安装 AUR 助手 (Paru) ---
+echo ">>> 从 AUR 安装 Paru..."
+# 检查 paru 是否已安装
+if ! command -v paru &> /dev/null; then
+    # 使用 makepkg 从 AUR 安装 paru
+    git clone https://aur.archlinux.org/paru.git /tmp/paru
+    cd /tmp/paru
+    makepkg -si --noconfirm
+    cd -
+    rm -rf /tmp/paru
+else
+    echo ">>> Paru 已安装，跳过。"
+fi
+
+# --- 4. 使用 Paru 安装软件包 (合并官方和AUR包) ---
+echo ">>> 使用 Paru 安装所有软件包..."
+paru -S --noconfirm \
     neovim \
     curl \
     i3-wm \
     vim \
     alacritty \
     fish \
+    zsh \
     i3blocks \
     ranger \
+    variety \
     picom \
     npm \
     gcc \
@@ -25,29 +57,70 @@ sudo pacman -S --noconfirm \
     nodejs \
     ttf-jetbrains-mono \
     ttf-jetbrains-mono-nerd \
-    paru \
     yarn \
     mpv \
     mpd \
+    mpc \
     ncmpcpp \
-    variety \
-    openssh 
+    openssh \
+    fcitx5-im \
+    fcitx5-chinese-addons
+
+# --- 5. 配置 Oh My Zsh 和插件 (假设主要使用 Zsh) ---
+echo ">>> 安装 Oh My Zsh..."
+# 检查是否已安装
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+else
+    echo ">>> Oh My Zsh 已安装，跳过。"
+fi
 
 plugins_dir=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins
 
-git clone https://github.com/zsh-users/zsh-completions $plugins_dir/zsh-completions
-git clone https://github.com/zsh-users/zsh-autosuggestions $plugins_dir/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $plugins_dir/zsh-syntax-highlighting
-git clone https://github.com/Aloxaf/fzf-tab $plugins_dir/fzf-tab
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+echo ">>> 克隆 Zsh 插件..."
+git clone --depth=1 https://github.com/zsh-users/zsh-completions $plugins_dir/zsh-completions || true
+git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions $plugins_dir/zsh-autosuggestions || true
+git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git $plugins_dir/zsh-syntax-highlighting || true
+git clone --depth=1 https://github.com/Aloxaf/fzf-tab $plugins_dir/fzf-tab || true
 
+echo ">>> 安装 Powerlevel10k 主题..."
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k || true
+
+# --- 6. 配置 vim ---
+echo ">>> 安装 Vim-Plug..."
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-bash scripts/setup
+# --- 7. 执行剩余外部配置脚本 ---
+if [ -f "./scripts/setup" ]; then
+    echo ">>> 执行 setup 脚本..."
+    bash ./scripts/setup
+else
+    echo "警告: ./scripts/setup 脚本不存在，已跳过。"
+fi
 
-bash scripts/install
+if [ -f "./scripts/install" ]; then
+    echo ">>> 执行 install 脚本..."
+    bash ./scripts/install
+else
+    echo "警告: ./scripts/install 脚本不存在，已跳过。"
+fi
 
+# --- 8. 配置输入法 (Fcitx5) ---
+echo ">>> 配置 Fcitx5 环境变量..."
+# 写入 /etc/environment 以确保全局生效
+sudo tee -a /etc/environment > /dev/null <<EOT
+GTK_IM_MODULE=fcitx
+QT_IM_MODULE=fcitx
+XMODIFIERS=@im=fcitx
+SDL_IM_MODULE=fcitx
+GLFW_IM_MODULE=ibus
+EOT
+# 建议在桌面启动时也启动 fcitx5
+
+# --- 9. 设置默认 Shell 为 Zsh ---
+echo ">>> 将默认 Shell 设置为 Zsh..."
 sudo chsh -s "$(which fish)" "$USER"
 
-sudo reboot
+echo ">>> 所有配置已完成！请重启系统以应用所有更改。"
+# sudo reboot # 你可以选择手动重启
