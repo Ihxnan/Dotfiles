@@ -19,26 +19,9 @@ fi
 echo ">>> 同步并升级系统软件包..."
 sudo pacman -Syyu --noconfirm
 
-echo ">>> 安装 base-devel 和其他核心软件包..."
-sudo pacman -S --noconfirm base-devel
-
-# --- 3. 安装 AUR 助手 (Paru) ---
-echo ">>> 从 AUR 安装 Paru..."
-# 检查 paru 是否已安装
-if ! command -v paru &> /dev/null; then
-    # 使用 makepkg 从 AUR 安装 paru
-    git clone https://aur.archlinux.org/paru.git /tmp/paru
-    cd /tmp/paru
-    makepkg -si --noconfirm
-    cd -
-    rm -rf /tmp/paru
-else
-    echo ">>> Paru 已安装，跳过。"
-fi
-
-# --- 4. 使用 Paru 安装软件包 (合并官方和AUR包) ---
-echo ">>> 使用 Paru 安装所有软件包..."
-paru -S --noconfirm \
+echo ">>> 使用 pacman 安装所有软件包..."
+sudo pacman -S --noconfirm \
+    base-devel \
     neovim \
     curl \
     i3-wm \
@@ -64,7 +47,8 @@ paru -S --noconfirm \
     ncmpcpp \
     openssh \
     fcitx5-im \
-    fcitx5-chinese-addons
+    fcitx5-chinese-addons \
+    paru
 
 # --- 5. 配置 Oh My Zsh 和插件 (假设主要使用 Zsh) ---
 echo ">>> 安装 Oh My Zsh..."
