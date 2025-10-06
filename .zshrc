@@ -203,7 +203,7 @@ alias q=exit
 
 # 系统信息展示
 # 快速执行 neofetch，显示系统信息和 Logo
-alias s=neofetch
+alias s='neofetch | lolcat'
 
 # 增强python
 alias ip=ipython
