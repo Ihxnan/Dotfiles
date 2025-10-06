@@ -45,6 +45,7 @@ sources_home=(
     ".p10k.zsh"
     "custom"  # Zsh 插件/主题目录
     ".Xresources"
+    ".profile"
 )
 targets_home=(
     "$HOME/.vimrc"
@@ -53,6 +54,7 @@ targets_home=(
     "$HOME/.p10k.zsh"
     "$HOME/.oh-my-zsh/custom"
     "$HOME/.Xresources"
+    "$HOME/.profile"
 )
 
 # ========================= 2. 工具函数 =========================
