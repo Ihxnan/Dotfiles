@@ -12,9 +12,8 @@ sudo cp -f ./Arch/paru.conf /etc/paru.conf
 # --- 2. 系统更新与基础软件安装 ---
 echo ">>> 同步并升级系统软件包..."
 sudo pacman -Syyu --noconfirm
-sudo pacman -Rns --noconfirm iptables || true # 即使 iptables 未安装，也要继续执行
 echo ">>> 使用 pacman 安装所有软件包..."
-sudo pacman -S --noconfirm \
+sudo pacman -S \
     base-devel \
     qemu-full \
     edk2-ovmf \
@@ -52,7 +51,9 @@ sudo pacman -S --noconfirm \
     mpc \
     ncmpcpp \
     openssh \
-    paru
+    paru \
+    fcitx5-im \
+    fcitx5-chinese-addons
 
 # --- 3. 配置 Oh My Zsh 和插件 ---
 echo ">>> 安装 Oh My Zsh..."
@@ -62,17 +63,6 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
 else
     echo ">>> Oh My Zsh 已安装，跳过。"
 fi
-
-plugins_dir=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins
-
-echo ">>> 克隆 Zsh 插件..."
-git clone --depth=1 https://github.com/zsh-users/zsh-completions $plugins_dir/zsh-completions || true
-git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions $plugins_dir/zsh-autosuggestions || true
-git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git $plugins_dir/zsh-syntax-highlighting || true
-git clone --depth=1 https://github.com/Aloxaf/fzf-tab $plugins_dir/fzf-tab || true
-
-echo ">>> 安装 Powerlevel10k 主题..."
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k || true
 
 # --- 4. 配置 vim ---
 echo ">>> 安装 Vim-Plug..."
@@ -145,6 +135,18 @@ XMODIFIERS=@im=fcitx
 SDL_IM_MODULE=fcitx
 GLFW_IM_MODULE=ibus
 EOT
+
+plugins_dir=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins
+
+echo ">>> 克隆 Zsh 插件..."
+git clone --depth=1 https://github.com/zsh-users/zsh-completions $plugins_dir/zsh-completions || true
+git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions $plugins_dir/zsh-autosuggestions || true
+git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git $plugins_dir/zsh-syntax-highlighting || true
+git clone --depth=1 https://github.com/Aloxaf/fzf-tab $plugins_dir/fzf-tab || true
+
+echo ">>> 安装 Powerlevel10k 主题..."
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k || true
+
 
 # --- 7. 设置默认 Shell 为 fish ---
 echo ">>> 将默认 Shell 设置为 fish..."
