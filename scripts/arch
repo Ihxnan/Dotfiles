@@ -101,7 +101,6 @@ declare -a PACKAGES=(
     "python-pynvim"
     "neofetch"
     "chromium"
-    "pycharm-professional"
 )
 
 # -------------------------- Install Packages --------------------------
