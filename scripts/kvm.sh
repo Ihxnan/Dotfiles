@@ -2,7 +2,7 @@
 
 sudo pacman -Syu
 
-sudo pacman -S qemu-full edk2-ovmf dnsmasq vde2 bridge-utils openbsd-netcat swptm virt-manager virt-viewer libvirt libvirt-dbus ebtables iptables-nft
+sudo pacman -S qemu-full edk2-ovmf dnsmasq vde2 bridge-utils openbsd-netcat swtpm virt-manager virt-viewer libvirt libvirt-dbus ebtables iptables-nft
 
 sudo systemctl enable --now libvirtd
 
