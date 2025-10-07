@@ -17,4 +17,6 @@ nmcli connection add type bridge-slave ifname enp5s0 master br0
 
 sudo systemctl restart NetworkManager
 
+sudo virsh net-start default
 
+sudo virsh net-autostart default
