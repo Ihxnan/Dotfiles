@@ -91,6 +91,7 @@ declare -a PACKAGES=(
     "neofetch"
     "chromium"
     "pycharm-eap"
+    "keynav"
 )
 
 # -------------------------- Install Packages --------------------------
