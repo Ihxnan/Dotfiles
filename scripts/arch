@@ -5,6 +5,8 @@ set -euo pipefail
 
 # --- 1. 环境准备 ---
 mkdir -p ~/WorkSpace/Algorithm
+mkdir ~/.mpd
+mkdir ~/.mpd/playlists
 
 sudo cp -f ./Arch/pacman.conf /etc/pacman.conf
 sudo cp -f ./Arch/paru.conf /etc/paru.conf
@@ -53,7 +55,10 @@ sudo pacman -S \
     openssh \
     paru \
     fcitx5-im \
-    fcitx5-chinese-addons
+    fcitx5-chinese-addons \
+    lolcat \
+    unzip \
+    lua51
 
 # --- 3. 配置 Oh My Zsh 和插件 ---
 echo ">>> 安装 Oh My Zsh..."
@@ -148,9 +153,9 @@ echo ">>> 安装 Powerlevel10k 主题..."
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k || true
 
 
-# --- 7. 设置默认 Shell 为 fish ---
-echo ">>> 将默认 Shell 设置为 fish..."
-sudo chsh -s "$(which fish)" "$USER"
+# --- 7. 设置默认 Shell 为 Zsh ---
+echo ">>> 将默认 Shell 设置为 Zsh..."
+sudo chsh -s "$(which zsh)" "$USER"
 
 echo ">>> 所有配置已完成！请重启系统以应用所有更改。"
 # sudo reboot # 你可以选择手动重启
