@@ -17,18 +17,6 @@ sudo pacman -Syyu --noconfirm
 echo ">>> 使用 pacman 安装所有软件包..."
 sudo pacman -S \
     base-devel \
-    qemu-full \
-    edk2-ovmf \
-    dnsmasq \
-    vde2 \
-    bridge-utils \
-    openbsd-netcat \
-    virt-manager \
-    virt-viewer \
-    libvirt \
-    libvirt-dbus \
-    ebtables \
-    iptables-nft \
     neovim \
     curl \
     i3-wm \
@@ -153,6 +141,9 @@ git clone --depth=1 https://github.com/Aloxaf/fzf-tab $plugins_dir/fzf-tab || tr
 echo ">>> 安装 Powerlevel10k 主题..."
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k || true
 
+# --- 6. 虚拟机配置 ---
+
+bash ./scripts/kvm.sh
 
 # --- 7. 设置默认 Shell 为 Zsh ---
 echo ">>> 将默认 Shell 设置为 Zsh..."
