@@ -50,6 +50,7 @@ sudo pacman -S \
     yarn \
     mpv \
     mpd \
+    fzf \
     mpc \
     ncmpcpp \
     openssh \
