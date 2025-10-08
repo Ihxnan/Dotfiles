@@ -65,6 +65,11 @@ rm -rf ~/.config/nvim/ ~/.vimrc
 ### 4. Arch 系列
 paru 更新时会要求输入用户密码
 
+### 5. nvidia 闭源驱动
+```
+sudo mhwd -a pci nonfree 0300
+```
+
 ---
 
 
