@@ -1,3 +1,4 @@
+
 {
     // 工作台相关设置
     "workbench.startupEditor": "none",
@@ -19,7 +20,7 @@
     "editor.smoothScrolling": true,
     "editor.tabCompletion": "onlySnippets",
     "editor.fontSize": 18,
-    "editor.fontFamily": "'JetBrains Mono', Consolas, 'Courier New', monospace",
+    "editor.fontFamily": "'JetBrainsMono Nerd Font', Consolas, 'Courier New', monospace",
     "editor.stickyScroll.enabled": false,
     "editor.cursorBlinking": "smooth",
     "editor.mouseWheelZoom": true,
@@ -158,4 +159,8 @@
     "fiveServer.highlight": true,
     "fiveServer.injectBody": true,
     "fiveServer.navigate": true,
+    "backgroundCover.imagePath": "/home/ihxnan/Pictures/background-gif/bg.gif",
+    "terminal.integrated.inheritEnv": false,
+    "task.verboseLogging": true,
 }
+
