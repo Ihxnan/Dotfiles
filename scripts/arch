@@ -47,7 +47,8 @@ sudo pacman -S \
     fcitx5-chinese-addons \
     lolcat \
     unzip \
-    lua51
+    lua51 \
+    feh
 
 # --- 3. 配置 Oh My Zsh 和插件 ---
 echo ">>> 安装 Oh My Zsh..."
