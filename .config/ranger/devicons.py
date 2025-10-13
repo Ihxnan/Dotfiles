@@ -3,8 +3,8 @@
 # These glyphs, and the mapping of file extensions to glyphs
 # has been copied from the vimscript code that is present in
 # https://github.com/ryanoasis/vim-devicons
-import re;
-import os;
+import os
+import re
 
 # all those glyphs will show as weird squares if you don't have the correct patched font
 # My advice is to use NerdFonts which can be found here:
@@ -131,15 +131,24 @@ file_node_extensions = {
 dir_node_exact_matches = {
 # English
     '.git'                             : '',
+    'anaconda3'                        : '',
+    'bin'                              : '',
+    'hpp'                              : '',
+    'Data'                             : '󱙌',
     'Desktop'                          : '',
     'Documents'                        : '',
     'Downloads'                        : '',
     'Dropbox'                          : '',
+    'Github'                           : '',
+    'ISO'                              : '',
     'Music'                            : '',
     'Pictures'                         : '',
     'Public'                           : '',
+    'Python'                           : '',
+    'Steam'                            : '',
     'Templates'                        : '',
     'Videos'                           : '',
+    'WorkSpace'                        : '',
 # French
     'Bureau'                           : '',
     'Documents'                        : '',

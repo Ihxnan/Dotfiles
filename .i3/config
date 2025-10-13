@@ -27,6 +27,7 @@ floating_modifier $mod
 
 # Set eDP-1-1 as the primary display
 # exec --no-startup-id xrandr --output eDP-1-1 --primary
+exec_always --no-startup-id autorandr --change --default default
 
 # always start
 # 透明渲染
