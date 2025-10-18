@@ -103,9 +103,9 @@ return {
 			local on_attach = function(client, bufnr)
 				local opts = { buffer = bufnr, noremap = true, silent = true }
 				-- 显示悬停文档
-				vim.keymap.set("n", "<C-h>", vim.lsp.buf.hover, vim.tbl_extend("force", opts, { desc = "显示悬停文档" }))
+				-- vim.keymap.set("n", "<C-h>", vim.lsp.buf.hover, vim.tbl_extend("force", opts, { desc = "显示悬停文档" }))
 				-- 显示签名帮助
-				vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, vim.tbl_extend("force", opts, { desc = "显示签名帮助" }))
+				-- vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, vim.tbl_extend("force", opts, { desc = "显示签名帮助" }))
 				-- 重命名符号
 				vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, vim.tbl_extend("force", opts, { desc = "重命名符号" }))
 				-- 显示代码动作
