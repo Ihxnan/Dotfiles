@@ -61,7 +61,10 @@ bindsym $mod+c exec chromium
 bindsym $mod+Shift+q kill
 
 # start program launcher
-bindsym $mod+d exec --no-startup-id dmenu_recency
+# bindsym $mod+d exec --no-startup-id dmenu_recency
+# rofi
+bindsym $mod+d exec --no-startup-id rofi -theme material -font "hack 20" -show drun -show-icons 
+bindsym $mod+s exec --no-startup-id ~/bin/rofi-search.sh
 
 # launch categorized menu
 bindsym $mod+z exec --no-startup-id morc_menu
@@ -140,7 +143,7 @@ bindsym $mod+q split toggle
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
+# bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 

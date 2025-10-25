@@ -208,3 +208,9 @@ alias s='neofetch | lolcat'
 # 增强python
 alias ip=ipython
 
+# hexo 预览
+alias pre='hexo clean && hexo server'
+
+# hexo 提交
+alias push='hexo clean && hexo generate && hexo deploy'
+
