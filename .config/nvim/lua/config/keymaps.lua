@@ -40,6 +40,8 @@ local run_code_with_data = function()
 	if filetype == "cpp" or filetype == "c" then
 		-- C/C++ 编译运行命令
 		vim.cmd("split | terminal g++ -O3 % && ./a.out < data && rm -f a.out")
+    elseif filetype == "python" then
+		vim.cmd("split | terminal python3 % < data")
 	else
 		-- 其他文件类型提示
 		print("不支持的文件类型: " .. filetype)

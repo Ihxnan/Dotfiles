@@ -212,5 +212,5 @@ alias ip=ipython
 alias pre='hexo clean && hexo server'
 
 # hexo 提交
-alias push='hexo clean && hexo generate && hexo deploy'
+alias push='hexo clean && hexo generate && hexo deploy && submit'
 
