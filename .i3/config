@@ -32,6 +32,7 @@ exec_always --no-startup-id autorandr --change --default default
 # always start
 # 透明渲染
 exec_always picom
+exec_always ~/bin/key
 # 壁纸
 exec variety
 # 中文输入法
@@ -45,7 +46,7 @@ exec keynav
 # Music
 # 在 ‘workspace 7' 打开spotify
 # exec --no-startup-id i3-msg 'workspace 7:󰽰; exec spotify'
-# exec --no-startup-id mpd
+exec_always --no-startup-id mpd
 
 # 在 'workspace 8' 打开clash
 # exec --no-startup-id i3-msg 'workspace 8:󰊀; exec clash-verge'
@@ -377,39 +378,40 @@ set_from_resource $term_color15    color15
 title_align center
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
-bar {
-    i3bar_command i3bar --transparency
-    status_command i3blocks -c ~/.config/i3blocks/config  # 使用 i3blocks 后端
-    position top  # 顶部栏
-    tray_output primary  # 托盘显示在主显示器
-
-    # 禁用原生工作区数字（用图标替代）
-    strip_workspace_numbers yes
-    workspace_buttons yes  # 保留工作区切换按钮
-
-    # 字体：使用 Nerd Font 确保图标显示
-    font xft:JetBrainsMono Nerd Font 14
-    # font pango:Noto Sans Mono 14
-
-    # 颜色方案：Nord 主题 + 半透明效果
-    colors {
-        # 背景半透明（最后两位 "CC" 代表约 80% 不透明度，可调整）
-        background #2E3440  
-        # 文本颜色（不透明，保持清晰）
-        statusline #ECEFF4 
-        # 分隔线半透明（轻微可见）
-        separator  #4C566A  
-
-        # 工作区颜色（半透明背景 + 不透明文本）
-        focused_workspace  #5E81ACFF #2E3440CC #ECEFF4FF  # 聚焦工作区：背景半透，边框/文本不透
-        active_workspace   #4C566AFF #2E3440CC #ECEFF4FF  # 活跃工作区
-        inactive_workspace #3B4252FF #2E3440CC #D8DEE9FF  # 非活跃工作区
-        urgent_workspace   #BF616AA0 #2E3440CC #ECEFF4FF  # 紧急工作区：边框半透红
-        }
-}
+# bar {
+#     i3bar_command i3bar --transparency
+#     status_command i3blocks -c ~/.config/i3blocks/config  # 使用 i3blocks 后端
+#     position top  # 顶部栏
+#     tray_output primary  # 托盘显示在主显示器
+#
+#     # 禁用原生工作区数字（用图标替代）
+#     strip_workspace_numbers yes
+#     workspace_buttons yes  # 保留工作区切换按钮
+#
+#     # 字体：使用 Nerd Font 确保图标显示
+#     font xft:JetBrainsMono Nerd Font 14
+#     # font pango:Noto Sans Mono 14
+#
+#     # 颜色方案：Nord 主题 + 半透明效果
+#     colors {
+#         # 背景半透明（最后两位 "CC" 代表约 80% 不透明度，可调整）
+#         background #2E3440  
+#         # 文本颜色（不透明，保持清晰）
+#         statusline #ECEFF4 
+#         # 分隔线半透明（轻微可见）
+#         separator  #4C566A  
+#
+#         # 工作区颜色（半透明背景 + 不透明文本）
+#         focused_workspace  #5E81ACFF #2E3440CC #ECEFF4FF  # 聚焦工作区：背景半透，边框/文本不透
+#         active_workspace   #4C566AFF #2E3440CC #ECEFF4FF  # 活跃工作区
+#         inactive_workspace #3B4252FF #2E3440CC #D8DEE9FF  # 非活跃工作区
+#         urgent_workspace   #BF616AA0 #2E3440CC #ECEFF4FF  # 紧急工作区：边框半透红
+#         }
+# }
 
 # hide/unhide i3status bar
-bindsym $mod+m bar mode toggle
+# bindsym $mod+m bar mode toggle
+exec_always --no-startup-id ~/.config/polybar/launch.sh
 
 # Theme colors
 # class                   border  backgr. text    indic.   child_border

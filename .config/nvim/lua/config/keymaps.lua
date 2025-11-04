@@ -12,17 +12,17 @@ local run_code = function()
 	-- 根据文件类型执行不同命令
 	if filetype == "cpp" or filetype == "c" then
 		-- C/C++ 编译运行命令
-		vim.cmd("split | terminal g++ -O3 % && ./a.out && rm -f a.out")
+		vim.cmd("split | terminal g++ -O3 % && ./a.out | lolcat && rm -f a.out")
 	elseif filetype == "python" then
 		-- Python 运行命令
-		vim.cmd("split | terminal python3 %")
+		vim.cmd("split | terminal python3 % | lolcat")
 	elseif filetype == "cmake" then
 		-- CMake
 		vim.cmd("split | terminal rm -rf build && mkdir build && cd build && cmake .. && make; $SHELL")
 		vim.cmd("startinsert")
     elseif filetype == "sh" then
         -- sh
-        vim.cmd("split | terminal sh %")
+        vim.cmd("split | terminal sh % | lolcat")
 	else
 		-- 其他文件类型提示
 		print("不支持的文件类型: " .. filetype)
@@ -39,9 +39,9 @@ local run_code_with_data = function()
 	-- 根据文件类型执行不同命令
 	if filetype == "cpp" or filetype == "c" then
 		-- C/C++ 编译运行命令
-		vim.cmd("split | terminal g++ -O3 % && ./a.out < data && rm -f a.out")
+		vim.cmd("split | terminal g++ -O3 % && ./a.out < data | lolcat && rm -f a.out")
     elseif filetype == "python" then
-		vim.cmd("split | terminal python3 % < data")
+		vim.cmd("split | terminal python3 % < data | lolcat")
 	else
 		-- 其他文件类型提示
 		print("不支持的文件类型: " .. filetype)
