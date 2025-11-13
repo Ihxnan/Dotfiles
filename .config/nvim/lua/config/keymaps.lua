@@ -23,6 +23,9 @@ local run_code = function()
     elseif filetype == "sh" then
         -- sh
         vim.cmd("split | terminal sh % | lolcat")
+    elseif filetype == "html" then
+        -- html
+        vim.cmd("split | terminal chromium %")
 	else
 		-- 其他文件类型提示
 		print("不支持的文件类型: " .. filetype)
