@@ -109,10 +109,6 @@ return {
 			-- on_attach 函数（原逻辑不变，快捷键配置保留）
 			local on_attach = function(client, bufnr)
 				local opts = { buffer = bufnr, noremap = true, silent = true }
-				-- 显示悬停文档
-				-- vim.keymap.set("n", "<C-h>", vim.lsp.buf.hover, vim.tbl_extend("force", opts, { desc = "显示悬停文档" }))
-				-- 显示签名帮助
-				-- vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, vim.tbl_extend("force", opts, { desc = "显示签名帮助" }))
 				-- 重命名符号
 				vim.keymap.set(
 					"n",

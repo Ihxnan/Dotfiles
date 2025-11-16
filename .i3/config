@@ -30,11 +30,15 @@ floating_modifier $mod
 exec_always --no-startup-id autorandr --change --default default
 
 # always start
+# 挂载服务器
+exec_always --no-startup-id sshfs 'ubuntu@106.53.202.12:/home/ubuntu' /home/ihxnan/ubuntu
+
 # 透明渲染
 exec_always picom
-exec_always ~/bin/key
+exec --no-startup-id ~/bin/key
 # 壁纸
-exec variety
+# exec variety
+exec --no-startup-id nitrogen --restore
 # 中文输入法
 exec_always fcitx5&
 # 禁用屏幕超时和关闭

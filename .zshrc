@@ -164,6 +164,9 @@ export BROWSER=/usr/bin/chromium
 # zsh-autosuggestions
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
+# ubunut云服务器
+export yun='ubuntu@106.53.202.12'
+
 # ==============================================
 # 命令别名配置 (Aliases)
 # ==============================================
