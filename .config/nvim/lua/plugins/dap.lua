@@ -7,7 +7,6 @@ local function setup_keymaps()
 
 	-- 调试相关快捷键
 	vim.keymap.set("n", "<F4>", function()
-		vim.cmd("w")
 		vim.cmd("!g++ -g -O0 % -o out")
 		require("dap").continue()
 	end, { desc = "DAP: 继续执行" })
@@ -106,6 +105,7 @@ return {
 				end,
 				cwd = "${workspaceFolder}", -- 工作目录（当前项目根目录）
 				stopOnEntry = false, -- 是否在程序入口处暂停（false 不暂停）
+				-- args = { "<", "${workspaceFolder}/data" }, -- 传递给程序的参数（空表示无参数）
 				args = {}, -- 传递给程序的参数（空表示无参数）
 				runInTerminal = false, -- 是否在终端中运行（false 则在 DAP UI 控制台输出）
 				-- 额外配置：解决部分编译路径问题
