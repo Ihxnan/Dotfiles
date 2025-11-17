@@ -87,3 +87,7 @@ vim.api.nvim_set_hl(0, "BufferLineTabPageFill", { bg = "NONE" })
 
 -- 工作目录自动切换
 vim.o.autochdir = true
+
+-- 折叠
+opt.foldmethod = 'indent'
+opt.foldexpr = 'nvim_treesitter#foldexpr()'
