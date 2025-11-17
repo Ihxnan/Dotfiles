@@ -82,7 +82,7 @@ keymap.set("i", "jk", "<ESC>")
 
 keymap.set("i", "<C-s>", "<ESC>:w<CR>")
 
-keymap.set("i", "<F5>", run_code, { desc = "run the code" })
+-- keymap.set("i", "<F5>", run_code, { desc = "run the code" })
 
 -- ---------- 终端模式 ---------- ---
 keymap.set("t", "jk", "<C-\\><C-n>")
@@ -97,12 +97,12 @@ keymap.set("v", "ii", "<ESC>")
 -- <leader> a new window
 keymap.set("n", "<leader>wv", "<C-w>s", { desc = "leader a window vertically" })
 keymap.set("n", "<leader>wh", "<C-w>v", { desc = "leader a window horizontally " })
-keymap.set("n", "<leader>t", ":w<CR><C-w>s:terminal<CR>i", { desc = "leader a terminal with insert mode" })
+keymap.set("n", "<leader>t", ":w<CR><C-w>v:terminal<CR>i", { desc = "leader a terminal with insert mode" })
 keymap.set("n", "<leader>i", ":w<CR><C-w>v:terminal<CR>iiflow<CR>", { desc = "open iflow" })
 keymap.set("n", "rc", run_code, { desc = "run the code" })
 keymap.set("n", "rd", run_code_with_data, { desc = "run the code with the data" })
 keymap.set("n", "dp", "<C-w>s:terminal<CR>idp", { desc = "run the code with the data" })
-keymap.set("n", "<F5>", run_code, { desc = "run the code" })
+-- keymap.set("n", "<F5>", run_code, { desc = "run the code" })
 
 -- go window focus {h, j, k, l}
 keymap.set("n", "<C-h>", "<C-w>h", { desc = "go window left" })
