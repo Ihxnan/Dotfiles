@@ -19,6 +19,9 @@ opt.cursorline = true
 -- 启用鼠标
 opt.mouse:append("a")
 
+-- 等待时间
+vim.o.timeoutlen = 500
+
 -- 系统剪贴板
 opt.clipboard:append("unnamedplus")
 

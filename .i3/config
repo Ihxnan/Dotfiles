@@ -31,7 +31,7 @@ exec_always --no-startup-id autorandr --change --default default
 
 # always start
 # 挂载服务器
-exec_always --no-startup-id sshfs 'ubuntu@106.53.202.12:/home/ubuntu' /home/ihxnan/ubuntu
+exec --no-startup-id sshfs 'ubuntu@106.53.202.12:/home/ubuntu' /home/ihxnan/ubuntu
 
 # 透明渲染
 exec_always picom
