@@ -82,7 +82,11 @@ keymap.set("i", "jk", "<ESC>")
 
 keymap.set("i", "<C-s>", "<ESC>:w<CR>")
 
--- keymap.set("i", "<F5>", run_code, { desc = "run the code" })
+-- 插入模式的移动
+keymap.set("i", "<C-h>", "<ESC>ha", { desc = "go window left" })
+keymap.set("i", "<C-j>", "<ESC>ja", { desc = "go window down" })
+keymap.set("i", "<C-k>", "<ESC>ka", { desc = "go window up" })
+keymap.set("i", "<C-l>", "<ESC>la", { desc = "go window right" })
 
 -- ---------- 终端模式 ---------- ---
 keymap.set("t", "jk", "<C-\\><C-n>")

@@ -149,6 +149,13 @@ dir_node_exact_matches = {
     'Templates'                        : '',
     'Videos'                           : '',
     'WorkSpace'                        : '',
+    'ubuntu'                           : '',
+    'Qt'                               : '',
+    'blender'                          : '',
+    'blender-git'                      : '',
+    'Hexo-Blog'                        : '',
+    'home'                             : '',
+    'ihxnan'                           : '',
 # French
     'Bureau'                           : '',
     'Documents'                        : '',
