@@ -156,7 +156,7 @@ export LC_ALL=en_US.UTF-8
 
 # 将用户自定义二进制目录添加到系统路径
 # 使 ~/bin 目录下的可执行文件无需绝对路径即可运行
-export PATH=$PATH:~/bin/:~/blender-git/build_linux/bin
+export PATH=/opt/cuda/bin:$PATH:~/bin/:~/blender-git/build_linux/bin
 
 # 设置默认浏览器为 chromium
 export BROWSER=/usr/bin/chromium
@@ -217,4 +217,7 @@ alias pre='hexo clean && hexo server'
 
 # hexo 提交
 alias push='hexo clean && hexo generate && hexo deploy && submit'
+
+# nvcc 指定算力
+alias nvcc='nvcc -arch=sm_89'
 

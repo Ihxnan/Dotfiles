@@ -24,6 +24,13 @@ return {
 			indent = { enable = false }, -- 关键：禁用 Treesitter 缩进
 		})
 
+		vim.filetype.add({
+			extension = {
+				cu = "cpp",
+				cuh = "cpp",
+			},
+		})
+
 		-- 针对 C/C++ 设置 cindent 和 cinoptions
 		vim.api.nvim_create_autocmd("FileType", {
 			pattern = { "c", "cpp" },
