@@ -12,16 +12,16 @@ return {
 			local dashboard = require("alpha.themes.dashboard")
 			-- 自定义 Logo（保留你的 ASCII 艺术）
 			local logo = [[
-    ✰   ✰   ✰   ✰   ✰   ✰   ✰   ✰   ✰   ✰   ✰ 
-★  ╔═════════════════════════════════════════════╗ ★ 
-   ██╗ ██╗  ██╗██╗  ██╗███╗   ██╗ █████╗ ███╗   ██╗  
+    ✰   ✰   ✰   ✰   ✰   ✰   ✰   ✰   ✰   ✰   ✰   ✰
+★  ╔═════════════════════════════════════════════╗ ★
+   ██╗ ██╗  ██╗██╗  ██╗███╗   ██╗ █████╗ ███╗   ██╗
 ✰  ██║ ██║  ██║╚██╗██╔╝████╗  ██║██╔══██╗████╗  ██║✧
-   ██║ ███████║ ╚███╔╝ ██╔██╗ ██║███████║██╔██╗ ██║  
-★  ██║ ██╔══██║ ██╔██╗ ██║╚██╗██║██╔══██║██║╚██╗██║★ 
-   ██║ ██║  ██║██╔╝ ██╗██║ ╚████║██║  ██║██║ ╚████║  
+   ██║ ███████║ ╚███╔╝ ██╔██╗ ██║███████║██╔██╗ ██║
+★  ██║ ██╔══██║ ██╔██╗ ██║╚██╗██║██╔══██║██║╚██╗██║★
+   ██║ ██║  ██║██╔╝ ██╗██║ ╚████║██║  ██║██║ ╚████║
 ✰  ╚═╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝  ╚═══╝✧
- ★  ╚════════════════════════════════════════════╝ ★ 
-    ✰   ✰   ✰   ✰   ✰   ✰   ✰   ✰   ✰   ✰   ✰ 
+ ★  ╚════════════════════════════════════════════╝ ★
+    ✰   ✰   ✰   ✰   ✰   ✰   ✰   ✰   ✰   ✰   ✰   ✰
       ]]
 
 			-- 设置头部 Logo
@@ -32,9 +32,10 @@ return {
 				dashboard.button("f", "  Find file", [[<cmd>lua require('telescope.builtin').find_files()<cr>]]),
 				dashboard.button("c", "  Config", "<cmd> e ~/.config/nvim/lua/config/ <cr>"),
 				dashboard.button("p", "  Plugins", "<cmd> e ~/.config/nvim/lua/plugins/<cr>"),
-				dashboard.button("tc", "  cpp", "<cmd> e ~/WorkSpace/Algorithm/test.cpp<cr>"),
-				dashboard.button("tp", "  python", "<cmd> e ~/WorkSpace/Algorithm/test.py<cr>"),
-				dashboard.button("a", "  Algorithm", "<cmd> e ~/WorkSpace/Algorithm/<cr>"),
+				dashboard.button("j", "  jsons", "<cmd> e ~/.config/nvim/snippets/<cr>"),
+				dashboard.button("tc", "  cpp", "<cmd> e ~/WorkSpace/Algorithm/cpp/test.cpp<cr>"),
+				dashboard.button("tp", "  python", "<cmd> e ~/WorkSpace/Algorithm/python/test.py<cr>"),
+				dashboard.button("tu", "  cuda", "<cmd> e ~/WorkSpace/Algorithm/cuda/test.cu<cr>"),
 				dashboard.button("b", "  Blog", "<cmd> e ~/Hexo-Blog/blog-demo/source/_posts/<cr>"),
 				dashboard.button("l", "󰒲  Lazy", "<cmd> Lazy <cr>"),
 				dashboard.button("h", "  Helath check", "<cmd> checkhealth <cr>"),

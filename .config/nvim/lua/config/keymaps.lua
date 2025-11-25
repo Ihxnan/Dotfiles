@@ -11,7 +11,7 @@ local run_cuda = function()
 
 	-- 根据文件类型执行不同命令
 	if filetype == "cuda" or filetype == "c" or filetype == "cpp" then
-		vim.cmd("split | terminal nvcc -arch=sm_89 % && ./a.out | lolcat && rm -f a.out")
+		vim.cmd("split | terminal nvcc -arch=sm_89 % && ./a.out && rm -f a.out")
 	else
 		-- 其他文件类型提示
 		print("不支持的文件类型: " .. filetype)
@@ -28,17 +28,17 @@ local run_code = function()
 	-- 根据文件类型执行不同命令
 	if filetype == "cpp" or filetype == "c" then
 		-- C/C++ 编译运行命令
-		vim.cmd("split | terminal g++ -O3 % && ./a.out | lolcat && rm -f a.out")
+		vim.cmd("split | terminal g++ -O3 % && ./a.out && rm -f a.out")
 	elseif filetype == "python" then
 		-- Python 运行命令
-		vim.cmd("split | terminal python3 % | lolcat")
+		vim.cmd("split | terminal python3 %")
 	elseif filetype == "cmake" then
 		-- CMake
 		vim.cmd("split | terminal rm -rf build && mkdir build && cd build && cmake .. && make; $SHELL")
 		vim.cmd("startinsert")
 	elseif filetype == "sh" then
 		-- sh
-		vim.cmd("split | terminal sh % | lolcat")
+		vim.cmd("split | terminal sh %")
 	elseif filetype == "html" then
 		-- html
 		vim.cmd("split | terminal chromium %")
@@ -58,9 +58,9 @@ local run_code_with_data = function()
 	-- 根据文件类型执行不同命令
 	if filetype == "cpp" or filetype == "c" then
 		-- C/C++ 编译运行命令
-		vim.cmd("split | terminal g++ -O3 % && ./a.out < data | lolcat && rm -f a.out")
+		vim.cmd("split | terminal g++ -O3 % && ./a.out < data && rm -f a.out")
 	elseif filetype == "python" then
-		vim.cmd("split | terminal python3 % < data | lolcat")
+		vim.cmd("split | terminal python3 % < data")
 	else
 		-- 其他文件类型提示
 		print("不支持的文件类型: " .. filetype)
@@ -112,6 +112,7 @@ keymap.set("t", "jk", "<C-\\><C-n>")
 keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 keymap.set("v", "ii", "<ESC>")
+keymap.set("v", "<C-c>", "y")
 
 -- ---------- 正常模式 ---------- ---
 -- <leader> a new window
