@@ -1,119 +1,58 @@
 #!/usr/bin/env bash
 
-# 确保脚本在遇到错误时立即退出
 set -euo pipefail
 
-# --- 1. 环境准备 ---
 mkdir -p ~/WorkSpace/Algorithm
-mkdir ~/.mpd
-mkdir ~/.mpd/playlists
+mkdir -p ~/.mpd/playlists
 
-sudo cp -f ./Arch/pacman.conf /etc/pacman.conf
-sudo cp -f ./Arch/paru.conf /etc/paru.conf
-
-# --- 2. 系统更新与基础软件安装 ---
-echo ">>> 同步并升级系统软件包..."
 sudo pacman -Syyu --noconfirm
-echo ">>> 使用 pacman 安装所有软件包..."
+
 sudo pacman -S \
     base-devel \
-    neovim \
+    sudo \
+    git \
     curl \
-    i3-wm \
+    wget \
+    openssh \
+    unzip \
+    neovim \
     vim \
-    alacritty \
-    fish \
-    zsh \
-    i3blocks \
-    ranger \
-    variety \
-    picom \
-    npm \
     gcc \
     gdb \
     clang \
     nodejs \
+    npm \
+    yarn \
+    lua51 \
+    fzf \
+    paru \
     ttf-jetbrains-mono \
     ttf-jetbrains-mono-nerd \
-    yarn \
-    mpv \
-    mpd \
-    fzf \
-    mpc \
-    ncmpcpp \
-    openssh \
-    paru \
     fcitx5-im \
     fcitx5-chinese-addons \
+    mpv \
+    mpd \
+    mpc \
+    ncmpcpp \
+    ffmpeg \
+    i3-wm \
+    i3blocks \
+    picom \
+    rofi \
+    dunst \
+    polybar \
+    variety \
+    feh \
+    xorg-xinit \
+    xorg-xrandr \
+    alacritty \
+    fish \
+    zsh \
+    ranger \
     lolcat \
-    unzip \
-    lua51 \
-    feh
+    chromium \
+    --noconfirm 
 
-# --- 3. 配置 Oh My Zsh 和插件 ---
-echo ">>> 安装 Oh My Zsh..."
-# 检查是否已安装
-if [ ! -d "$HOME/.oh-my-zsh" ]; then
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-else
-    echo ">>> Oh My Zsh 已安装，跳过。"
-fi
-
-# --- 4. 配置 vim ---
-echo ">>> 安装 Vim-Plug..."
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-# --- 5. paru安装非官方软件
-
-# -------------------------- Safety Check --------------------------
-# Paru MUST NOT run as root (it handles sudo privileges internally for system packages)
-if [ "$EUID" -eq 0 ]; then
-    echo "ERROR: This script should NOT be run as root."
-    echo "Please run it as a regular user with sudo access."
-    exit 1
-fi
-
-# -------------------------- System Update --------------------------
-echo -e "\n=== Updating Paru database and system packages ==="
-# -Syu: Sync package databases (-S), update system (-u), refresh AUR databases (-y)
-# --noconfirm: Auto-confirm all prompts (remove this for manual confirmation)
-paru -Syu --noconfirm
-
-# -------------------------- Define Packages --------------------------
-# List the AUR/official packages you want to install (replace with your targets)
-declare -a PACKAGES=(
-    "spotify"
-    "playerctl"
-    "clash-geoip"
-    "clash-verge-rev"
-    "mihomo"
-    "python-pynvim"
-    "neofetch"
-    "chromium"
-    "pycharm-eap"
-    "keynav"
-)
-
-# -------------------------- Install Packages --------------------------
-echo -e "\n=== Starting installation of specified packages ==="
-# -S: Install packages from official repos/AUR
-# --noconfirm: Auto-confirm (optional but useful for automation)
-# "${PACKAGES[@]}": Expand the package list array
-paru -S --noconfirm "${PACKAGES[@]}"
-
-# -------------------------- Verify Installation --------------------------
-# Check if the last command (paru -S) succeeded (exit code 0 = success)
-if [ $? -eq 0 ]; then
-    echo -e "\n✅ All packages installed successfully!"
-else
-    echo -e "\n❌ Error occurred during installation."
-    exit 1
-fi
-
-# --- paru end
-
-# --- 5. 执行剩余外部配置脚本 ---
 if [ -f "./scripts/setup" ]; then
     echo ">>> 执行 setup 脚本..."
     bash ./scripts/setup
@@ -121,35 +60,4 @@ else
     echo "警告: ./scripts/setup 脚本不存在，已跳过。"
 fi
 
-# --- 6. 配置输入法 (Fcitx5) ---
-echo ">>> 配置 Fcitx5 环境变量..."
-# 写入 /etc/environment 以确保全局生效
-sudo tee -a /etc/environment > /dev/null <<EOT
-GTK_IM_MODULE=fcitx
-QT_IM_MODULE=fcitx
-XMODIFIERS=@im=fcitx
-SDL_IM_MODULE=fcitx
-GLFW_IM_MODULE=ibus
-EOT
-
-plugins_dir=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins
-
-echo ">>> 克隆 Zsh 插件..."
-git clone --depth=1 https://github.com/zsh-users/zsh-completions $plugins_dir/zsh-completions || true
-git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions $plugins_dir/zsh-autosuggestions || true
-git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git $plugins_dir/zsh-syntax-highlighting || true
-git clone --depth=1 https://github.com/Aloxaf/fzf-tab $plugins_dir/fzf-tab || true
-
-echo ">>> 安装 Powerlevel10k 主题..."
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k || true
-
-# --- 6. 虚拟机配置 ---
-
-bash ./scripts/kvm.sh
-
-# --- 7. 设置默认 Shell 为 Zsh ---
-echo ">>> 将默认 Shell 设置为 Zsh..."
-sudo chsh -s "$(which zsh)" "$USER"
-
 echo ">>> 所有配置已完成！请重启系统以应用所有更改。"
-# sudo reboot # 你可以选择手动重启

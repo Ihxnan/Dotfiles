@@ -21,6 +21,7 @@ sources_config=(
     ".config/ncmpcpp"
     ".config/dunst"
     ".config/polybar"
+    ".config/rofi"
 )
 targets_config=(
     "$HOME/.config/alacritty"
@@ -37,6 +38,7 @@ targets_config=(
     "$HOME/.config/ncmpcpp"
     "$HOME/.config/dunst"
     "$HOME/.config/polybar"
+    "$HOME/.config/rofi"
 )
 
 # 1.2 ~/ 根目录下的配置（含 Zsh custom 目录）
