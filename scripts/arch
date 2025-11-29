@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "Start ..."
+
 set -euo pipefail
 
 mkdir -p ~/WorkSpace/Algorithm
@@ -53,11 +55,6 @@ sudo pacman -S \
     chromium \
     --noconfirm 
 
-if [ -f "./scripts/setup" ]; then
-    echo ">>> 执行 setup 脚本..."
-    bash ./scripts/setup
-else
-    echo "警告: ./scripts/setup 脚本不存在，已跳过。"
-fi
+bash ./scripts/setup
 
-echo ">>> 所有配置已完成！请重启系统以应用所有更改。"
+echo "Done"
